@@ -60,6 +60,10 @@ body::before{
     linear-gradient(180deg, #EBF0EA 0%, #E0E8E1 50%, #D9E3DC 100%);
 }
 body > *{position:relative; z-index:1;}
+/* The injected header/sticky wrappers must sit above page content — otherwise
+   the fixed nav and the mobile menu get trapped under later sections. */
+#site-header{position:relative; z-index:100;}
+#site-sticky{position:relative; z-index:90;}
 img{max-width:100%; display:block;}
 a{color:inherit; text-decoration:none;}
 button{font:inherit; cursor:pointer; border:0; background:none; color:inherit;}
