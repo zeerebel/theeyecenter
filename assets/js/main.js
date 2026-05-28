@@ -182,14 +182,28 @@
     var sticky = document.getElementById("stickyBook");
     if (!sticky) return;
     var anchor = document.querySelector(".hero, .page-hero");
+    var footer = document.querySelector("footer.foot");
 
-    if (anchor && "IntersectionObserver" in window) {
-      var obs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) {
-          sticky.classList.toggle("show", !en.isIntersecting);
-        });
-      }, { threshold: 0.05 });
-      obs.observe(anchor);
+    if ("IntersectionObserver" in window) {
+      // Show once the hero is scrolled past, but hide again when the footer
+      // comes into view so the bar never covers the copyright row.
+      var state = { past: !anchor, footer: false };
+      function update() {
+        sticky.classList.toggle("show", state.past && !state.footer);
+      }
+      if (anchor) {
+        new IntersectionObserver(function (entries) {
+          state.past = !entries[0].isIntersecting;
+          update();
+        }, { threshold: 0.05 }).observe(anchor);
+      }
+      if (footer) {
+        new IntersectionObserver(function (entries) {
+          state.footer = entries[0].isIntersecting;
+          update();
+        }, { rootMargin: "0px 0px -40px 0px" }).observe(footer);
+      }
+      update();
     } else {
       sticky.classList.add("show");
     }
