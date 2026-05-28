@@ -1,0 +1,2042 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Eye Care Center — Vision, Redefined.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#E6ECE6;
+    --bg-2:#D6E2DC;
+    --bg-3:#EFF1E8;
+    --card:#F4F2EC;
+    --card-2:#ECEAE2;
+    --ink:#191D1A;
+    --ink-soft:#3A413C;
+    --ink-mute:#7A8079;
+    --rule:rgba(25,29,26,.10);
+    --rule-2:rgba(25,29,26,.18);
+    --lime:#D6F25E;
+    --lime-2:#C8E854;
+    --sage:#A8BCAE;
+    --mint:#B9D4C6;
+    --plum:#C9B9D6;
+    --peach:#E8C9B0;
+    --radius-card: 18px;
+    --radius-pill: 999px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Instrument Sans", system-ui, sans-serif;
+    font-size:15.5px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+    position:relative;
+  }
+  /* Atmospheric gradient overlay */
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(60% 50% at 80% 0%, rgba(185, 212, 198, .55), transparent 60%),
+      radial-gradient(50% 40% at 0% 30%, rgba(201, 185, 214, .25), transparent 60%),
+      radial-gradient(70% 60% at 100% 90%, rgba(232, 201, 176, .22), transparent 60%),
+      linear-gradient(180deg, #EBF0EA 0%, #E0E8E1 50%, #D9E3DC 100%);
+  }
+  body > *{position:relative; z-index:1;}
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  button{font:inherit; cursor:pointer; border:0; background:none; color:inherit;}
+
+  .serif{font-family:"Instrument Serif", serif; font-weight:400;}
+  .mono{font-family:"JetBrains Mono", ui-monospace, monospace;}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    padding:18px 28px;
+    display:flex; justify-content:center;
+    pointer-events:none;
+  }
+  .nav-inner{
+    pointer-events:auto;
+    width:100%; max-width:1480px;
+    background:rgba(244, 242, 236, .72);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border:1px solid rgba(255,255,255,.6);
+    border-radius:999px;
+    padding:10px 12px 10px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+    box-shadow: 0 12px 40px -20px rgba(25,29,26,.18);
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand-glyph{
+    width:30px; height:30px; border-radius:50%;
+    background: radial-gradient(circle at 35% 35%, #fff 0%, #cfd9d1 40%, #7e9087 100%);
+    position:relative;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.6), 0 2px 6px rgba(25,29,26,.15);
+  }
+  .brand-glyph::after{
+    content:""; position:absolute; inset:35%; border-radius:50%;
+    background:#1a1f1c;
+  }
+  .brand-name{
+    font-family:"Instrument Serif", serif;
+    font-size:22px; letter-spacing:-0.01em; line-height:1;
+  }
+  .brand-name sup{font-family:"Instrument Sans", sans-serif; font-size:9px; vertical-align:super; opacity:.55; margin-left:1px;}
+  .nav-links{display:flex; align-items:center; gap:30px;}
+  .nav-links a{
+    font-size:13.5px; font-weight:500; letter-spacing:-0.005em;
+    display:inline-flex; align-items:baseline; gap:5px;
+    color:var(--ink);
+  }
+  .nav-links a sup{
+    font-size:9px; font-weight:500; padding:2px 6px; border-radius:999px;
+    background:rgba(25,29,26,.08); color:var(--ink-soft);
+    letter-spacing:.02em; vertical-align:super;
+  }
+  .nav-links a.has-arr::after{content:" →"; opacity:.6; font-size:11px;}
+  .nav-right{display:flex; align-items:center; gap:8px;}
+  .pill{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:10px 18px; border-radius:999px;
+    font-size:13px; font-weight:500; letter-spacing:-0.005em;
+    background:transparent; color:var(--ink);
+    border:1px solid var(--rule-2);
+    transition: all .35s ease; white-space:nowrap;
+  }
+  .pill:hover{background:rgba(25,29,26,.06);}
+  .pill.lime{background:var(--lime); border-color:var(--lime); color:var(--ink); font-weight:600;}
+  .pill.lime:hover{background:var(--lime-2); border-color:var(--lime-2);}
+  .pill .arr{font-size:14px; transition: transform .35s ease;}
+  .pill:hover .arr{transform: translateX(3px);}
+  .icon-btn{
+    width:38px; height:38px; border-radius:50%;
+    border:1px solid var(--rule-2);
+    display:grid; place-items:center;
+    transition: background .3s, transform .3s;
+  }
+  .icon-btn:hover{background:rgba(25,29,26,.06);}
+  .icon-btn svg{width:14px; height:14px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    padding: 120px 28px 40px;
+    display:flex; flex-direction:column;
+    justify-content:center;
+  }
+  .hero-tag{
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:13px; color:var(--ink-soft);
+    margin-bottom:30px;
+  }
+  .hero-tag .dot{width:5px; height:5px; border-radius:50%; background:var(--ink);}
+
+  .hero-row{
+    max-width:1480px; margin:0 auto; width:100%;
+    display:grid; grid-template-columns: 1.5fr 1fr;
+    gap:40px;
+    align-items:end;
+    padding: 30px 0 50px;
+  }
+  .hero h1{
+    font-family:"Instrument Sans", sans-serif;
+    font-weight:500;
+    font-size: clamp(54px, 7.2vw, 116px);
+    line-height: .96;
+    letter-spacing:-0.035em;
+    margin:0;
+    max-width:14ch;
+  }
+  .hero h1 .em{
+    font-family:"Instrument Serif", serif;
+    font-style:italic;
+    font-weight:400;
+    letter-spacing:-0.02em;
+  }
+  .hero h1 .line{display:block; overflow:hidden;}
+  .hero h1 .line > span{display:inline-block; transform:translateY(105%); animation: lineUp 1.05s cubic-bezier(.2,.7,.2,1) forwards;}
+  .hero h1 .line:nth-child(1) > span{animation-delay:.2s;}
+  .hero h1 .line:nth-child(2) > span{animation-delay:.32s;}
+  .hero h1 .line:nth-child(3) > span{animation-delay:.44s;}
+  @keyframes lineUp{to{transform:translateY(0);}}
+  @keyframes rise{from{opacity:0; transform:translateY(18px);}to{opacity:1; transform:translateY(0);}}
+
+  .hero-right{
+    display:flex; flex-direction:column; gap:24px; align-items:flex-start;
+    opacity:0; animation: rise .9s .6s ease forwards;
+  }
+  .hero-right p{
+    font-size:16px; line-height:1.55; color:var(--ink-soft); margin:0;
+    max-width:38ch;
+  }
+  .hero-actions{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+  .hero-actions .arr-btn{
+    width:42px; height:42px; border-radius:50%;
+    border:1px solid var(--rule-2);
+    display:grid; place-items:center;
+    transition: all .35s ease;
+  }
+  .hero-actions .arr-btn:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
+
+  /* ---------- TRUSTPILOT STRIP ---------- */
+  .trust{
+    display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+    padding-top:8px;
+  }
+  .trust .avs{display:flex; align-items:center;}
+  .trust .avs .av{
+    width:28px; height:28px; border-radius:50%;
+    border:2px solid var(--bg);
+    margin-left:-8px;
+    background-size:cover; background-position:center;
+    box-shadow: 0 2px 6px rgba(0,0,0,.12);
+  }
+  .trust .avs .av:first-child{margin-left:0;}
+  .trust .avs .av.a{background: radial-gradient(60% 50% at 50% 35%, #e8d8c4 0%, #b89a7c 70%);}
+  .trust .avs .av.b{background: radial-gradient(60% 50% at 50% 35%, #d4d8c2 0%, #889980 70%);}
+  .trust .avs .av.c{background: radial-gradient(60% 50% at 50% 35%, #d8cad4 0%, #9a8298 70%);}
+  .trust .num{display:flex; flex-direction:column; gap:1px;}
+  .trust .num .v{font-weight:600; font-size:14px; letter-spacing:-0.01em;}
+  .trust .num .k{font-size:11.5px; color:var(--ink-mute);}
+  .trust .pipe{width:1px; height:28px; background:var(--rule-2);}
+  .trust .stars{display:flex; align-items:center; gap:8px;}
+  .trust .stars .ss{
+    display:flex; gap:1px;
+  }
+  .trust .stars .sq{
+    width:14px; height:14px; background:#00B67A;
+    display:grid; place-items:center;
+  }
+  .trust .stars .sq svg{width:9px; height:9px; fill:#fff;}
+  .trust .stars .label{font-size:12.5px; font-weight:500;}
+  .trust .stars .label b{font-weight:600;}
+  .trust .stars .dot{width:3px; height:3px; border-radius:50%; background:var(--ink-mute);}
+  .trust .stars .ex{color:var(--ink);}
+
+  /* ---------- CARD GRID (hero) ---------- */
+  .card-rail{
+    max-width:1480px; margin:0 auto; width:100%;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:14px;
+    opacity:0; animation: rise 1s .8s ease forwards;
+    will-change: transform;
+  }
+  .gcard{
+    aspect-ratio: 4/5;
+    border-radius:var(--radius-card, 18px);
+    background:var(--card);
+    position:relative; overflow:hidden;
+    box-shadow: 0 18px 50px -25px rgba(25,29,26,.25), inset 0 0 0 1px rgba(255,255,255,.4);
+    transition: transform .6s cubic-bezier(.2,.7,.2,1), box-shadow .6s ease;
+    cursor:pointer;
+    will-change: transform;
+  }
+  .gcard:hover{transform: translateY(-6px); box-shadow: 0 30px 60px -25px rgba(25,29,26,.35), inset 0 0 0 1px rgba(255,255,255,.4);}
+  .gcard .bg{
+    position:absolute; inset:0;
+    background-size: cover; background-position: center;
+  }
+  /* Image fallback gradients (used while loading + as backdrop) */
+  .bg-1{
+    background:
+      linear-gradient(180deg, rgba(74,92,112,.05) 0%, rgba(74,92,112,.55) 100%),
+      radial-gradient(60% 60% at 50% 35%, #B8C8D8 0%, #6E8298 75%, #4A5C70 100%);
+  }
+  .bg-2{
+    background:
+      linear-gradient(180deg, rgba(154,142,74,.05) 0%, rgba(154,142,74,.5) 100%),
+      radial-gradient(60% 60% at 50% 35%, #E8E2A0 0%, #C8B868 75%, #9A8E4A 100%);
+  }
+  .bg-3{
+    background:
+      linear-gradient(180deg, rgba(168,106,80,.05) 0%, rgba(168,106,80,.5) 100%),
+      radial-gradient(60% 60% at 50% 35%, #F0CFB0 0%, #D89A78 75%, #A86A50 100%);
+  }
+  .bg-4{
+    background:
+      linear-gradient(180deg, rgba(90,112,96,.05) 0%, rgba(90,112,96,.55) 100%),
+      radial-gradient(60% 60% at 50% 35%, #C8D6C0 0%, #8AA08A 75%, #5A7060 100%);
+  }
+  .gcard img.portrait{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position: center 30%;
+    z-index:0;
+  }
+  .gcard .tint{
+    position:absolute; inset:0; z-index:1;
+    mix-blend-mode: multiply;
+  }
+  .gcard.v1 .tint{background: linear-gradient(180deg, rgba(110,130,152,.55) 0%, rgba(74,92,112,.7) 100%);}
+  .gcard.v2 .tint{background: linear-gradient(180deg, rgba(200,184,104,.5) 0%, rgba(154,142,74,.65) 100%);}
+  .gcard.v3 .tint{background: linear-gradient(180deg, rgba(216,154,120,.45) 0%, rgba(168,106,80,.6) 100%);}
+  .gcard.v4 .tint{background: linear-gradient(180deg, rgba(138,160,138,.5) 0%, rgba(90,112,96,.7) 100%);}
+  .gcard .veil{
+    position:absolute; inset:0; z-index:1;
+    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.35) 100%);
+  }
+
+  /* ---------- TICKER ---------- */
+  .ticker{
+    max-width:1480px; margin: 40px auto 0; width:100%;
+    overflow:hidden;
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+    padding: 18px 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  }
+  .ticker-track{
+    display:flex; gap:32px; align-items:center; width:max-content;
+    animation: tick 60s linear infinite;
+  }
+  .ticker:hover .ticker-track{animation-play-state: paused;}
+  .t-item{
+    font-family:"Instrument Sans", sans-serif;
+    font-size:15px; color:var(--ink-soft);
+    letter-spacing:-0.005em; white-space:nowrap;
+  }
+  .t-item b{color:var(--ink); font-weight:600;}
+  .t-item i{font-family:"Instrument Serif", serif; font-style:italic; color:var(--ink);}
+  .t-sep{color:var(--ink-mute); opacity:.5; font-size:14px;}
+  @keyframes tick{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
+  /* ---------- STICKY BOOKING BAR ---------- */
+  .sticky-book{
+    position:fixed; right:24px; bottom:24px; z-index:60;
+    display:flex; align-items:stretch; gap:0;
+    background: rgba(244, 242, 236, .85);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border:1px solid rgba(255,255,255,.7);
+    border-radius:999px;
+    padding:6px;
+    box-shadow: 0 24px 60px -20px rgba(25,29,26,.35);
+    opacity:0; transform: translateY(20px) scale(.96);
+    pointer-events:none;
+    transition: opacity .5s ease, transform .5s cubic-bezier(.2,.7,.2,1);
+  }
+  .sticky-book.show{opacity:1; transform:none; pointer-events:auto;}
+  .sb-loc{
+    display:flex; flex-direction:column; gap:1px;
+    padding:8px 14px 8px 18px;
+    border-right:1px solid var(--rule);
+    cursor:pointer; position:relative;
+    min-width:140px;
+  }
+  .sb-loc:hover{background:rgba(25,29,26,.04); border-radius:999px 0 0 999px;}
+  .sb-loc .lbl{
+    font-family:"JetBrains Mono", monospace;
+    font-size:9.5px; color:var(--ink-mute); letter-spacing:.04em;
+    text-transform:uppercase;
+  }
+  .sb-loc .val{
+    font-size:13.5px; font-weight:500; letter-spacing:-0.005em;
+    display:flex; align-items:center; gap:6px;
+  }
+  .sb-loc .val::after{
+    content:""; width:0; height:0;
+    border-left:4px solid transparent; border-right:4px solid transparent;
+    border-top:5px solid var(--ink-mute);
+    margin-left:auto;
+  }
+  .sb-dropdown{
+    position:absolute; bottom: calc(100% + 8px); left:0; right:0;
+    background:#fff;
+    border:1px solid var(--rule);
+    border-radius:14px;
+    padding:6px;
+    box-shadow: 0 18px 40px -10px rgba(25,29,26,.2);
+    opacity:0; transform:translateY(6px);
+    pointer-events:none;
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  .sb-loc.open .sb-dropdown{opacity:1; transform:none; pointer-events:auto;}
+  .sb-opt{
+    display:flex; flex-direction:column; gap:1px;
+    padding:9px 12px; border-radius:9px;
+    cursor:pointer;
+  }
+  .sb-opt:hover{background:rgba(25,29,26,.05);}
+  .sb-opt.active{background:rgba(214,242,94,.35);}
+  .sb-opt .city{font-size:13px; font-weight:500;}
+  .sb-opt .dist{font-family:"JetBrains Mono", monospace; font-size:10px; color:var(--ink-mute);}
+  .sb-book{
+    display:inline-flex; align-items:center; gap:10px;
+    padding: 0 22px;
+    background:var(--lime); color:var(--ink);
+    border-radius:999px;
+    font-size:13.5px; font-weight:600; letter-spacing:-0.005em;
+    transition: background .3s ease, gap .3s ease;
+  }
+  .sb-book:hover{background:var(--lime-2); gap:14px;}
+
+  /* ---------- FOOT LOCATIONS ---------- */
+  .foot-locs{
+    display:grid; grid-template-columns: repeat(3, 1fr);
+    gap:1px;
+    background:rgba(241,240,234,.12);
+    border-top:1px solid rgba(241,240,234,.12);
+    border-bottom:1px solid rgba(241,240,234,.12);
+    margin-bottom:48px;
+  }
+  .foot-loc{
+    background:var(--ink);
+    padding:26px 24px 22px;
+    display:flex; flex-direction:column; gap:8px;
+    transition: background .3s ease;
+  }
+  .foot-loc:hover{background:#0e1311;}
+  .foot-loc-top{
+    display:flex; justify-content:space-between; align-items:start;
+    font-family:"JetBrains Mono", monospace; font-size:10.5px;
+    color:rgba(241,240,234,.5); letter-spacing:.04em;
+    margin-bottom:6px;
+  }
+  .foot-loc h4{
+    font-family:"Instrument Sans", sans-serif; font-weight:500;
+    font-size:30px; letter-spacing:-0.02em; line-height:1;
+    margin:0 0 6px; color:#F1F0EA;
+  }
+  .foot-loc .addr{font-size:13px; line-height:1.5; color:rgba(241,240,234,.7);}
+  .foot-loc .phone{
+    font-family:"Instrument Serif", serif; font-style:italic;
+    font-size:20px; color:var(--lime);
+  }
+  .foot-loc .lf{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:auto; padding-top:10px;
+    font-family:"JetBrains Mono", monospace; font-size:10px;
+    color:rgba(241,240,234,.45); letter-spacing:.04em;
+  }
+  .foot-loc .lf a{color:var(--lime); transition:opacity .2s;}
+  .foot-loc .lf a:hover{opacity:.7;}
+
+  /* ---------- TWEAKS PANEL ---------- */
+  .tweaks{
+    position:fixed; right:24px; top:96px; z-index:70;
+    width:300px;
+    background:#fff;
+    border:1px solid var(--rule);
+    border-radius:18px;
+    box-shadow: 0 24px 60px -10px rgba(25,29,26,.3);
+    padding:18px;
+    opacity:0; transform: translateY(10px) scale(.98);
+    pointer-events:none;
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  .tweaks.show{opacity:1; transform:none; pointer-events:auto;}
+  .tweaks-head{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-bottom:18px;
+    padding-bottom:14px; border-bottom:1px solid var(--rule);
+  }
+  .tweaks-head h6{
+    font-family:"Instrument Sans", sans-serif; font-weight:500;
+    font-size:16px; margin:0; letter-spacing:-0.01em;
+  }
+  .tweaks-head .x{
+    width:28px; height:28px; border-radius:50%;
+    border:1px solid var(--rule-2);
+    display:grid; place-items:center;
+    cursor:pointer; font-size:13px;
+  }
+  .tweaks-head .x:hover{background:rgba(25,29,26,.05);}
+  .tw-group{margin-bottom:18px;}
+  .tw-group:last-child{margin-bottom:0;}
+  .tw-label{
+    display:block;
+    font-family:"JetBrains Mono", monospace; font-size:10px;
+    color:var(--ink-mute); letter-spacing:.08em;
+    text-transform:uppercase; margin-bottom:10px;
+  }
+  .tw-swatches{display:flex; gap:8px;}
+  .tw-swatch{
+    flex:1; height:34px; border-radius:8px;
+    border:1.5px solid transparent;
+    cursor:pointer; position:relative;
+    transition: transform .2s, border-color .2s;
+  }
+  .tw-swatch:hover{transform: translateY(-1px);}
+  .tw-swatch.active{border-color:var(--ink);}
+  .tw-swatch.active::after{
+    content:"✓"; position:absolute; inset:0;
+    display:grid; place-items:center;
+    color:#fff; font-size:14px; font-weight:600;
+    text-shadow: 0 1px 2px rgba(0,0,0,.3);
+  }
+  .tw-row{display:grid; grid-template-columns: repeat(3, 1fr); gap:6px;}
+  .tw-opt{
+    padding:9px 8px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    font-size:11.5px; text-align:center;
+    cursor:pointer;
+    transition: all .2s;
+  }
+  .tw-opt:hover{background:rgba(25,29,26,.04);}
+  .tw-opt.active{background:var(--ink); color:#F1F0EA; border-color:var(--ink);}
+
+  /* Tweaks toggle button (in nav) */
+  .tweaks-toggle{
+    display:none;
+    width:38px; height:38px; border-radius:50%;
+    border:1px solid var(--rule-2);
+    place-items:center;
+    margin-left:4px;
+  }
+  .tweaks-toggle.visible{display:grid;}
+  .tweaks-toggle:hover{background:rgba(25,29,26,.06);}
+  .tweaks-toggle svg{width:14px; height:14px;}
+
+  /* Apply tweak vars */
+  body[data-density="compact"] section{padding-top:70px; padding-bottom:70px;}
+  body[data-density="spacious"] section{padding-top:160px; padding-bottom:160px;}
+
+  .gcard .chip-row{
+    position:absolute; top:14px; left:14px; right:14px;
+    display:flex; justify-content:space-between; align-items:start;
+    gap:8px; z-index:3;
+  }
+  .gcard .foot{
+    position:absolute; bottom:18px; left:20px; right:20px;
+    display:flex; justify-content:space-between; align-items:end;
+    gap:10px; z-index:3;
+  }
+  .gcard .name{
+    font-family:"Instrument Serif", serif; font-style:italic;
+    font-size: clamp(22px, 2vw, 30px); line-height:1.05;
+    color:#fff; letter-spacing:-0.01em;
+    text-shadow: 0 2px 8px rgba(0,0,0,.2);
+    max-width:8ch;
+  }
+  .gcard .discover{
+    display:inline-flex; align-items:center; gap:6px;
+    color:#fff; font-size:13px; font-weight:500;
+    text-shadow: 0 1px 4px rgba(0,0,0,.2);
+    transition: gap .3s ease;
+  }
+  .gcard:hover .discover{gap:10px;}
+  .gcard .discover .a{
+    width:22px; height:22px; border-radius:50%;
+    background:rgba(255,255,255,.95); color:var(--ink);
+    display:grid; place-items:center;
+    font-size:11px;
+    text-shadow:none;
+  }
+  .chip{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:6px 11px;
+    background:rgba(244,242,236,.85);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-radius:999px;
+    font-size:11px; font-weight:500;
+    color:var(--ink);
+    border:1px solid rgba(255,255,255,.4);
+  }
+  .chip.lime{background:var(--lime); border-color:var(--lime);}
+  .chip-dot{width:20px; height:20px; border-radius:50%; background:var(--lime); border:2px solid #fff;}
+  .qr{
+    width:54px; height:54px;
+    background:
+      conic-gradient(from 90deg at 50% 50%, #1a1f1c 25%, transparent 0) 0 0 / 14px 14px,
+      conic-gradient(from 0deg at 50% 50%, #1a1f1c 25%, transparent 0) 7px 7px / 14px 14px,
+      #f4f2ec;
+    border:3px solid #f4f2ec; border-radius:4px;
+    position:relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  }
+  .qr::before, .qr::after{content:""; position:absolute; width:14px; height:14px; background:#1a1f1c;}
+  .qr::before{top:2px; left:2px; box-shadow: inset 0 0 0 3px #f4f2ec, inset 0 0 0 5px #1a1f1c;}
+  .qr::after{top:2px; right:2px; box-shadow: inset 0 0 0 3px #f4f2ec, inset 0 0 0 5px #1a1f1c;}
+  .dot-pattern{
+    width:38px; height:14px;
+    background: radial-gradient(circle, var(--ink) 1.4px, transparent 1.6px) 0 0 / 7px 7px;
+  }
+  .play-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:7px 12px 7px 9px;
+    background:rgba(25,29,26,.65); color:#fff;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-radius:999px;
+    font-size:10.5px; font-weight:500; letter-spacing:.04em; text-transform:uppercase;
+  }
+  .play-btn .tri{
+    width:0; height:0;
+    border-left:6px solid #fff;
+    border-top:4px solid transparent;
+    border-bottom:4px solid transparent;
+    margin-right:2px;
+  }
+  .id-tag{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10px; letter-spacing:.06em;
+    color:#fff; text-shadow: 0 1px 2px rgba(0,0,0,.4);
+    padding:0;
+  }
+  .ring{
+    width:22px; height:22px; border-radius:50%; border:1.5px solid #fff;
+    box-shadow: 0 0 0 4px rgba(214,242,94,.5);
+  }
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{padding: 110px 28px;}
+  .container{max-width:1480px; margin:0 auto;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; color:var(--ink-soft);
+    margin-bottom:24px;
+  }
+  .eyebrow .dot{width:5px; height:5px; border-radius:50%; background:var(--ink);}
+  .section-head{
+    display:grid; grid-template-columns: 1.4fr 1fr;
+    gap:60px; align-items:end; margin-bottom:60px;
+  }
+  .section-head h2{
+    font-family:"Instrument Sans", sans-serif;
+    font-weight:500;
+    font-size: clamp(40px, 5.4vw, 84px);
+    line-height: 1.0; letter-spacing:-0.03em;
+    margin:0; max-width:16ch;
+  }
+  .section-head h2 .em{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400;}
+  .section-head .right{display:flex; flex-direction:column; gap:22px; align-items:flex-start;}
+  .section-head .right p{font-size:15.5px; line-height:1.6; color:var(--ink-soft); margin:0; max-width:42ch;}
+
+  /* ---------- SERVICES ---------- */
+  .services{padding-top:60px;}
+  .svc-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr);
+    gap:14px;
+  }
+  .svc{
+    background:var(--card);
+    border-radius:var(--radius-card, 18px);
+    padding:24px;
+    box-shadow: 0 14px 40px -25px rgba(25,29,26,.2), inset 0 0 0 1px rgba(255,255,255,.4);
+    display:flex; flex-direction:column;
+    min-height:480px;
+    transition: transform .5s ease, box-shadow .5s ease;
+  }
+  .svc:hover{transform: translateY(-4px); box-shadow: 0 24px 50px -25px rgba(25,29,26,.3), inset 0 0 0 1px rgba(255,255,255,.4);}
+  .svc-head{display:flex; justify-content:space-between; align-items:start; margin-bottom:16px;}
+  .svc-num{
+    font-family:"JetBrains Mono", monospace;
+    font-size:11px; color:var(--ink-mute);
+  }
+  .svc-img{
+    flex:1; min-height:200px;
+    border-radius:12px;
+    position:relative; overflow:hidden;
+    margin-bottom:18px;
+  }
+  .svc-img.a{background: radial-gradient(60% 60% at 50% 40%, #cfd5c2 0%, #8fa294 80%);}
+  .svc-img.b{background: radial-gradient(60% 60% at 50% 40%, #d8cabd 0%, #a08a78 80%);}
+  .svc-img.c{background:
+    repeating-linear-gradient(90deg, rgba(25,29,26,.06) 0 1px, transparent 1px 8px),
+    radial-gradient(60% 60% at 50% 40%, #d4dcd1 0%, #aabaae 80%);}
+  .svc-img.d{background: radial-gradient(40% 30% at 50% 45%, rgba(214,242,94,.4) 0%, transparent 60%), radial-gradient(60% 60% at 50% 55%, #cdc8d6 0%, #9890a8 80%);}
+  .svc-img .corner-chip{
+    position:absolute; top:12px; left:12px;
+    padding:5px 10px; border-radius:999px;
+    background:rgba(244,242,236,.85);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    font-family:"JetBrains Mono", monospace;
+    font-size:10px; letter-spacing:.04em;
+    color:var(--ink);
+  }
+  .svc-img .id-stamp{
+    position:absolute; bottom:12px; right:12px;
+    font-family:"JetBrains Mono", monospace;
+    font-size:10px; color:#fff; opacity:.75;
+  }
+  .svc h3{
+    font-family:"Instrument Sans", sans-serif;
+    font-weight:500;
+    font-size:26px; line-height:1.1; letter-spacing:-0.02em;
+    margin:0 0 10px;
+  }
+  .svc h3 .em{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400;}
+  .svc p{font-size:14px; line-height:1.55; color:var(--ink-soft); margin:0 0 16px;}
+  .svc-foot{
+    margin-top:auto; padding-top:16px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .svc-foot .tag{font-family:"JetBrains Mono", monospace; font-size:10.5px; color:var(--ink-mute);}
+  .svc-foot .arr{
+    width:34px; height:34px; border-radius:50%;
+    border:1px solid var(--rule-2);
+    display:grid; place-items:center;
+    transition: all .35s ease;
+  }
+  .svc:hover .svc-foot .arr{background:var(--lime); border-color:var(--lime);}
+
+  /* ---------- EYEWEAR (New Arrivals) ---------- */
+  .eyewear{padding-top:60px;}
+  .eyewear-head{
+    display:flex; justify-content:space-between; align-items:end;
+    gap:30px; flex-wrap:wrap; margin-bottom:36px;
+  }
+  .eyewear-head h2{
+    font-family:"Instrument Serif", serif;
+    font-weight:400; font-style:italic;
+    font-size: clamp(44px, 5.4vw, 88px);
+    line-height: 1.0; letter-spacing:-0.02em;
+    margin:0; max-width:18ch;
+  }
+  .eyewear-head .right{
+    display:flex; align-items:end; gap:14px;
+  }
+  .eyewear-head .right p{
+    font-size:14px; color:var(--ink-soft); margin:0; max-width:28ch; line-height:1.5;
+  }
+  .eyewear-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr);
+    gap:14px;
+  }
+  .prod{
+    background:var(--card);
+    border-radius:var(--radius-card, 18px);
+    padding:14px;
+    display:flex; flex-direction:column;
+    box-shadow: 0 14px 40px -25px rgba(25,29,26,.18), inset 0 0 0 1px rgba(255,255,255,.4);
+    transition: transform .5s ease, box-shadow .5s ease;
+  }
+  .prod:hover{transform: translateY(-5px); box-shadow: 0 24px 50px -25px rgba(25,29,26,.28), inset 0 0 0 1px rgba(255,255,255,.4);}
+  .prod-top{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:8px 6px 12px;
+  }
+  .prod-tag{
+    padding:5px 10px;
+    background:rgba(25,29,26,.06);
+    border-radius:999px;
+    font-size:10.5px; font-weight:500; letter-spacing:.01em;
+    color:var(--ink);
+  }
+  .prod-tag.hot{background:var(--lime); color:var(--ink);}
+  .prod-tag.cool{background:rgba(184,200,216,.5); color:var(--ink);}
+  .prod-tag.warm{background:rgba(240,207,176,.55); color:var(--ink);}
+  .prod-tag.fresh{background:rgba(200,214,192,.55); color:var(--ink);}
+  .prod-colours{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10.5px; color:var(--ink-mute);
+    display:flex; align-items:center; gap:6px;
+  }
+  .prod-colours .dots{display:flex; gap:3px;}
+  .prod-colours .dt{width:8px; height:8px; border-radius:50%; border:1px solid rgba(25,29,26,.18);}
+  .prod-img{
+    aspect-ratio: 4/3;
+    background:
+      radial-gradient(60% 50% at 50% 100%, rgba(25,29,26,.08) 0%, transparent 60%),
+      linear-gradient(180deg, #FBFAF5 0%, #F0EEE6 100%);
+    border-radius:12px;
+    position:relative;
+    display:grid; place-items:center;
+    overflow:hidden;
+    margin-bottom:14px;
+  }
+  /* SVG glasses placeholder */
+  .prod-img svg.gl{width:78%; height:auto; filter: drop-shadow(0 6px 14px rgba(25,29,26,.18));}
+  .prod-img .stripes{
+    position:absolute; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(90deg, rgba(25,29,26,.03) 0 1px, transparent 1px 22px);
+  }
+  .prod-body{
+    padding:0 6px 6px;
+    display:flex; justify-content:space-between; align-items:end; gap:12px;
+  }
+  .prod-info{display:flex; flex-direction:column; gap:4px;}
+  .prod-info .model{font-family:"JetBrains Mono", monospace; font-size:11px; color:var(--ink-mute);}
+  .prod-info .brand{font-size:14px; font-weight:500; letter-spacing:-0.01em;}
+  .prod-info .price{
+    font-family:"Instrument Sans", sans-serif; font-weight:600;
+    font-size:20px; letter-spacing:-0.02em; margin-top:6px;
+  }
+  .prod-ar{
+    width:36px; height:36px; border-radius:50%;
+    background:rgba(25,29,26,.06);
+    display:grid; place-items:center;
+    transition: background .3s;
+    flex-shrink:0;
+  }
+  .prod:hover .prod-ar{background:var(--lime);}
+  .prod-ar svg{width:16px; height:16px; stroke:var(--ink); stroke-width:1.5; fill:none;}
+
+  /* ---------- STATS BAND ---------- */
+  .stats{
+    padding: 60px 28px;
+  }
+  .stats-inner{
+    max-width:1480px; margin:0 auto;
+    background:var(--card);
+    border-radius:24px;
+    padding:30px 36px;
+    display:grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+    gap:32px; align-items:center;
+    box-shadow: 0 18px 50px -30px rgba(25,29,26,.2), inset 0 0 0 1px rgba(255,255,255,.5);
+  }
+  .stats-inner .lead{
+    font-family:"Instrument Serif", serif;
+    font-style:italic; font-size:22px; line-height:1.25;
+    color:var(--ink); letter-spacing:-0.005em;
+  }
+  .stats-inner .stat{display:flex; flex-direction:column; gap:6px;}
+  .stats-inner .stat .v{
+    font-family:"Instrument Sans", sans-serif; font-weight:500;
+    font-size:40px; line-height:1; letter-spacing:-0.03em;
+  }
+  .stats-inner .stat .k{
+    font-size:12px; color:var(--ink-mute);
+  }
+
+  /* ---------- DOCTORS ---------- */
+  .doctors{}
+  .doc-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr);
+    gap:14px;
+  }
+  .doc{
+    background:var(--card);
+    border-radius:var(--radius-card, 18px);
+    overflow:hidden;
+    box-shadow: 0 14px 40px -25px rgba(25,29,26,.2), inset 0 0 0 1px rgba(255,255,255,.4);
+    transition: transform .5s ease;
+  }
+  .doc:hover{transform: translateY(-5px);}
+  .doc-img{
+    aspect-ratio: 4/5;
+    position:relative; overflow:hidden;
+  }
+  .doc-img.a{background: radial-gradient(60% 50% at 50% 35%, #e8d8c4 0%, #b89a7c 70%);}
+  .doc-img.b{background: radial-gradient(60% 50% at 50% 35%, #d4d8c2 0%, #889980 70%);}
+  .doc-img.c{background: radial-gradient(60% 50% at 50% 35%, #d8cad4 0%, #9a8298 70%);}
+  .doc-img.d{background: radial-gradient(60% 50% at 50% 35%, #c8d6d4 0%, #7c9694 70%);}
+  .doc-img .id{
+    position:absolute; top:14px; left:14px;
+    font-family:"JetBrains Mono", monospace; font-size:10px;
+    color:#fff; opacity:.85;
+  }
+  .doc-img .badge{
+    position:absolute; top:12px; right:12px;
+    padding:5px 10px; border-radius:999px;
+    background:rgba(244,242,236,.88);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    font-size:10.5px; font-weight:500; letter-spacing:.01em;
+  }
+  .doc-img .ring{
+    position:absolute; left:50%; top:38%; transform:translate(-50%,-50%);
+    width:64px; height:64px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.6);
+    box-shadow: 0 0 0 3px rgba(214,242,94,.25);
+  }
+  .doc-body{padding:18px 18px 20px;}
+  .doc-body h4{
+    font-family:"Instrument Sans", sans-serif; font-weight:500;
+    font-size:22px; line-height:1.15; letter-spacing:-0.02em;
+    margin:0 0 6px;
+  }
+  .doc-body .role{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10.5px; color:var(--ink-mute);
+    margin-bottom:14px;
+  }
+  .doc-body p{
+    font-size:13.5px; line-height:1.5; color:var(--ink-soft);
+    margin:0 0 16px;
+  }
+  .doc-foot{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:14px; border-top:1px solid var(--rule);
+    font-size:12px;
+  }
+  .doc-foot .loc{color:var(--ink-mute);}
+  .doc-foot .arr{
+    width:30px; height:30px; border-radius:50%;
+    border:1px solid var(--rule-2);
+    display:grid; place-items:center;
+    transition: background .3s;
+  }
+  .doc:hover .doc-foot .arr{background:var(--lime); border-color:var(--lime);}
+
+  .doc-cta-row{
+    margin-top:50px;
+    background:var(--ink); color:#F1F0EA;
+    border-radius:18px;
+    padding:32px 36px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;
+    gap:24px;
+  }
+  .doc-cta-row .left{
+    max-width:60ch;
+  }
+  .doc-cta-row p{
+    font-family:"Instrument Serif", serif; font-style:italic;
+    font-size:28px; line-height:1.25; margin:0;
+    letter-spacing:-0.005em;
+  }
+  .doc-cta-row .by{
+    display:block;
+    font-family:"JetBrains Mono", monospace; font-style:normal;
+    font-size:10.5px; color:rgba(241,240,234,.6); letter-spacing:.04em;
+    margin-top:12px;
+  }
+  .doc-cta-row .pill{border-color:rgba(241,240,234,.3); color:#F1F0EA;}
+  .doc-cta-row .pill:hover{background:rgba(241,240,234,.1);}
+  .doc-cta-row .pill.lime{color:var(--ink);}
+
+  /* ---------- PORTAL ---------- */
+  .portal{}
+  .portal-grid{
+    display:grid; grid-template-columns: 1.05fr 1fr;
+    gap:18px; align-items:stretch;
+  }
+  .portal-left{
+    background:var(--card);
+    border-radius:24px;
+    padding:42px 40px;
+    display:flex; flex-direction:column;
+    box-shadow: 0 18px 50px -30px rgba(25,29,26,.2), inset 0 0 0 1px rgba(255,255,255,.4);
+  }
+  .portal-left h2{
+    font-family:"Instrument Sans", sans-serif; font-weight:500;
+    font-size: clamp(36px, 4.4vw, 64px);
+    line-height:1.02; letter-spacing:-0.03em;
+    margin:18px 0 22px; max-width:16ch;
+  }
+  .portal-left h2 .em{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400;}
+  .portal-left > p{
+    font-size:15.5px; line-height:1.6; color:var(--ink-soft); max-width:46ch; margin:0 0 32px;
+  }
+  .portal-list{
+    list-style:none; padding:0; margin:0 0 32px;
+    display:grid; gap:10px;
+  }
+  .portal-list li{
+    display:grid; grid-template-columns: auto 1fr auto; gap:18px; align-items:center;
+    padding:16px 0;
+    border-top:1px solid var(--rule);
+  }
+  .portal-list li:last-child{border-bottom:1px solid var(--rule);}
+  .portal-list .n{font-family:"JetBrains Mono", monospace; font-size:11px; color:var(--ink-mute);}
+  .portal-list .t{font-size:17px; line-height:1.3; letter-spacing:-0.01em;}
+  .portal-list .a{
+    width:28px; height:28px; border-radius:50%;
+    border:1px solid var(--rule-2);
+    display:grid; place-items:center;
+    font-size:13px;
+    transition: background .3s;
+  }
+  .portal-list li:hover .a{background:var(--lime); border-color:var(--lime);}
+  .portal-actions{display:flex; gap:8px; flex-wrap:wrap; margin-top:auto;}
+
+  .portal-card{
+    background:linear-gradient(160deg, #DCE6DC 0%, #C5D4CB 100%);
+    border-radius:24px;
+    padding:30px 30px 26px;
+    position:relative; overflow:hidden;
+    display:flex; flex-direction:column;
+    box-shadow: 0 18px 50px -30px rgba(25,29,26,.2), inset 0 0 0 1px rgba(255,255,255,.5);
+    min-height:520px;
+  }
+  .portal-card::before{
+    content:""; position:absolute; top:-100px; right:-100px;
+    width:280px; height:280px; border-radius:50%;
+    background: radial-gradient(circle, rgba(214,242,94,.4) 0%, transparent 70%);
+  }
+  .pc-top{
+    display:flex; justify-content:space-between; align-items:start;
+    font-family:"JetBrains Mono", monospace; font-size:11px;
+    color:var(--ink-soft);
+    position:relative; z-index:1;
+  }
+  .pc-id{display:flex; align-items:center; gap:8px;}
+  .pc-id .pulse{
+    width:8px; height:8px; border-radius:50%; background:var(--lime);
+    box-shadow:0 0 0 0 rgba(214,242,94,.7);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(214,242,94,.6);}70%{box-shadow:0 0 0 10px rgba(214,242,94,0);}100%{box-shadow:0 0 0 0 rgba(214,242,94,0);}}
+  .pc-display{
+    margin: 50px 0 36px;
+    font-family:"Instrument Sans", sans-serif; font-weight:500;
+    font-size: clamp(40px, 5vw, 64px); line-height:.96;
+    letter-spacing:-0.035em;
+    position:relative; z-index:1;
+  }
+  .pc-display .em{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400;}
+  .pc-rows{
+    margin-bottom:24px; position:relative; z-index:1;
+    display:grid; gap:0;
+  }
+  .pc-rows .row{
+    display:grid; grid-template-columns: 1fr auto; gap:12px;
+    padding:13px 0;
+    border-top:1px solid rgba(25,29,26,.12);
+    align-items:center;
+  }
+  .pc-rows .row:last-child{border-bottom:1px solid rgba(25,29,26,.12);}
+  .pc-rows .k{font-family:"JetBrains Mono", monospace; font-size:11px; color:var(--ink-soft);}
+  .pc-rows .v{font-family:"Instrument Sans", sans-serif; font-size:16px; font-weight:500; letter-spacing:-0.01em;}
+  .pc-rows .v.lime{
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .pc-rows .v.lime::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--ink);}
+  .pc-foot{
+    margin-top:auto; padding-top:14px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:"JetBrains Mono", monospace; font-size:10.5px;
+    color:var(--ink-soft);
+    position:relative; z-index:1;
+  }
+
+  /* ---------- INSIGHTS ---------- */
+  .insights{}
+  .ins-grid{
+    display:grid; grid-template-columns: 1.6fr 1fr 1fr;
+    gap:14px;
+  }
+  .ins{
+    background:var(--card);
+    border-radius:var(--radius-card, 18px);
+    padding:22px;
+    display:flex; flex-direction:column;
+    box-shadow: 0 14px 40px -25px rgba(25,29,26,.18), inset 0 0 0 1px rgba(255,255,255,.4);
+    transition: transform .5s ease;
+    min-height:520px;
+  }
+  .ins:hover{transform: translateY(-5px);}
+  .ins-img{
+    border-radius:12px;
+    aspect-ratio: 16/10;
+    position:relative; overflow:hidden;
+    margin-bottom:20px;
+  }
+  .ins.lead .ins-img{aspect-ratio: 16/9;}
+  .ins-img.a{background: radial-gradient(60% 60% at 50% 40%, rgba(214,242,94,.3) 0%, transparent 70%), radial-gradient(60% 60% at 50% 60%, #cdd6c8 0%, #889681 80%);}
+  .ins-img.b{background: radial-gradient(60% 60% at 50% 50%, #d4cdc0 0%, #908676 80%);}
+  .ins-img.c{background: radial-gradient(50% 50% at 50% 50%, #c8d6d4 0%, #7a9696 80%);}
+  .ins-img .chip{position:absolute; top:12px; left:12px;}
+  .ins-img .id{position:absolute; bottom:12px; right:12px; font-family:"JetBrains Mono", monospace; font-size:10px; color:#fff; opacity:.8;}
+  .ins-meta{
+    display:flex; gap:14px; align-items:center;
+    font-size:12px; color:var(--ink-mute);
+    margin-bottom:14px;
+  }
+  .ins-meta .cat{color:var(--ink); font-weight:500;}
+  .ins-meta .sep{width:3px; height:3px; border-radius:50%; background:var(--ink-mute);}
+  .ins h3{
+    font-family:"Instrument Sans", sans-serif; font-weight:500;
+    font-size:24px; line-height:1.18; letter-spacing:-0.02em;
+    margin:0 0 12px;
+  }
+  .ins.lead h3{font-size:36px; line-height:1.05;}
+  .ins h3 .em{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400;}
+  .ins p{font-size:14px; line-height:1.55; color:var(--ink-soft); margin:0 0 20px;}
+  .ins-read{
+    margin-top:auto; padding-top:14px; border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:12.5px;
+  }
+  .ins-read .by{color:var(--ink-mute);}
+  .ins-read .more{
+    display:inline-flex; align-items:center; gap:6px;
+    font-weight:500;
+  }
+
+  /* ---------- LOCATIONS ---------- */
+  .locations{}
+  .loc-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr);
+    gap:14px;
+  }
+  .loc{
+    background:var(--card);
+    border-radius:18px;
+    padding:28px 28px 24px;
+    display:flex; flex-direction:column; gap:14px;
+    box-shadow: 0 14px 40px -25px rgba(25,29,26,.18), inset 0 0 0 1px rgba(255,255,255,.4);
+    min-height:280px;
+    transition: transform .5s ease;
+  }
+  .loc:hover{transform: translateY(-5px);}
+  .loc-top{display:flex; justify-content:space-between; align-items:start;}
+  .loc-top .num{font-family:"JetBrains Mono", monospace; font-size:11px; color:var(--ink-mute);}
+  .loc-top .tag{font-family:"JetBrains Mono", monospace; font-size:10px; color:var(--ink-mute);}
+  .loc h3{
+    font-family:"Instrument Sans", sans-serif; font-weight:500;
+    font-size:36px; line-height:1; letter-spacing:-0.03em;
+    margin:0;
+  }
+  .loc .addr{font-size:14px; line-height:1.5; color:var(--ink-soft);}
+  .loc .phone{
+    font-family:"Instrument Serif", serif; font-style:italic;
+    font-size:22px; color:var(--ink);
+  }
+  .loc-foot{
+    margin-top:auto; padding-top:16px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:12.5px;
+  }
+  .loc-foot .hrs{color:var(--ink-mute);}
+  .loc-foot .arr{
+    width:30px; height:30px; border-radius:50%;
+    border:1px solid var(--rule-2);
+    display:grid; place-items:center; font-size:13px;
+    transition: background .3s;
+  }
+  .loc:hover .loc-foot .arr{background:var(--lime); border-color:var(--lime);}
+
+  /* ---------- FOOTER ---------- */
+  footer.foot{
+    padding: 60px 28px 32px;
+  }
+  .foot-card{
+    max-width:1480px; margin:0 auto;
+    background:var(--ink); color:#F1F0EA;
+    border-radius:28px;
+    padding:60px 56px 32px;
+    position:relative; overflow:hidden;
+  }
+  .foot-card::before{
+    content:""; position:absolute; top:-150px; right:-150px;
+    width:400px; height:400px; border-radius:50%;
+    background: radial-gradient(circle, rgba(214,242,94,.18) 0%, transparent 70%);
+  }
+  .foot-top{
+    display:grid; grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap:50px;
+    padding-bottom:60px;
+    position:relative; z-index:1;
+  }
+  .foot-brand{display:flex; flex-direction:column; gap:24px; max-width:38ch;}
+  .foot-brand .quote{
+    font-family:"Instrument Serif", serif; font-style:italic;
+    font-size:24px; line-height:1.3; color:rgba(241,240,234,.92);
+    letter-spacing:-0.005em;
+  }
+  .foot-brand .quote .em{color:var(--lime);}
+  .foot-col h5{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10.5px; color:var(--lime); text-transform:uppercase;
+    letter-spacing:.06em; margin:0 0 20px; font-weight:500;
+  }
+  .foot-col ul{list-style:none; padding:0; margin:0; display:grid; gap:12px;}
+  .foot-col li a{font-size:14px; color:rgba(241,240,234,.85); transition: color .3s;}
+  .foot-col li a:hover{color:var(--lime);}
+  .foot-bot{
+    padding-top:24px;
+    border-top:1px solid rgba(241,240,234,.15);
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;
+    font-family:"JetBrains Mono", monospace; font-size:10.5px; color:rgba(241,240,234,.5);
+    position:relative; z-index:1;
+  }
+  .foot-bot .links{display:flex; gap:24px;}
+  .foot-bot .links a{transition: color .3s;}
+  .foot-bot .links a:hover{color:#F1F0EA;}
+
+  .foot-brand .pill{border-color:rgba(241,240,234,.3); color:#F1F0EA; align-self:flex-start;}
+  .foot-brand .pill.lime{color:var(--ink);}
+  .foot-brand .pill:hover{background:rgba(241,240,234,.1);}
+  .foot-brand .pill.lime:hover{background:var(--lime-2);}
+
+  /* Accent overrides (set on body[data-accent=...]) */
+  body[data-accent="coral"]{ --lime:#FF7B5A; --lime-2:#F26A48; }
+  body[data-accent="cobalt"]{ --lime:#5A8BFF; --lime-2:#4878F5; }
+  body[data-accent="amber"]{ --lime:#F2C94C; --lime-2:#E5B83B; }
+  body[data-accent="coral"] .pill.lime,
+  body[data-accent="cobalt"] .pill.lime,
+  body[data-accent="amber"] .pill.lime{color:#fff;}
+  body[data-accent="amber"] .pill.lime{color:var(--ink);}
+  body[data-radius="sharp"]{ --radius-card: 6px; }
+  body[data-radius="pillowy"]{ --radius-card: 28px; }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0; transform:translateY(28px); transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1; transform:none;}
+  .reveal.d1{transition-delay:.08s;}
+  .reveal.d2{transition-delay:.16s;}
+  .reveal.d3{transition-delay:.24s;}
+  .reveal.d4{transition-delay:.32s;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 1180px){
+    .nav-links{display:none;}
+    .nav-inner{padding:10px 12px 10px 20px;}
+    .hero-row{grid-template-columns: 1fr; gap:30px;}
+    .card-rail{grid-template-columns: repeat(2, 1fr);}
+    .card-rail .gcard:nth-child(4), .card-rail .gcard:nth-child(5){display:block;}
+    .svc-grid{grid-template-columns: repeat(2, 1fr);}
+    .eyewear-grid{grid-template-columns: repeat(2, 1fr);}
+    .doc-grid{grid-template-columns: repeat(2, 1fr);}
+    .portal-grid{grid-template-columns: 1fr;}
+    .ins-grid{grid-template-columns: 1fr 1fr;}
+    .ins.lead{grid-column: span 2;}
+    .loc-grid{grid-template-columns: 1fr;}
+    .foot-top{grid-template-columns: 1fr 1fr; gap:36px;}
+    .stats-inner{grid-template-columns: 1fr 1fr 1fr; gap:24px;}
+    .stats-inner .lead{grid-column: span 3;}
+    .section-head{grid-template-columns: 1fr; gap:24px;}
+  }
+  @media (max-width: 680px){
+    .nav{padding:14px 16px;}
+    section{padding: 80px 16px;}
+    .hero{padding: 100px 16px 30px;}
+    .stats{padding: 40px 16px;}
+    footer.foot{padding: 40px 16px 24px;}
+    .card-rail{grid-template-columns: 1fr 1fr; gap:10px;}
+    .card-rail .gcard:nth-child(3){display:block;}
+    .svc-grid{grid-template-columns: 1fr;}
+    .eyewear-grid{grid-template-columns: 1fr;}
+    .doc-grid{grid-template-columns: 1fr;}
+    .ins-grid{grid-template-columns: 1fr;}
+    .ins.lead{grid-column: span 1;}
+    .foot-top{grid-template-columns: 1fr;}
+    .foot-card{padding: 40px 26px 26px;}
+    .portal-left{padding:30px 26px;}
+    .stats-inner{grid-template-columns: 1fr 1fr; padding:22px;}
+    .stats-inner .lead{grid-column: span 2;}
+    .doc-cta-row{padding:24px 26px;}
+    .doc-cta-row p{font-size:22px;}
+    .nav-right .pill:not(.lime){display:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" data-screen-label="Nav">
+  <div class="nav-inner">
+    <a href="#" class="brand">
+      <span class="brand-glyph" aria-hidden="true"></span>
+      <span class="brand-name">eyecare<sup>®</sup></span>
+    </a>
+    <div class="nav-links">
+      <a href="#services">Practice</a>
+      <a href="#doctors">Physicians <sup>14</sup></a>
+      <a href="#portal">Patients <sup>New</sup></a>
+      <a href="#insights" class="has-arr">Journal</a>
+    </div>
+    <div class="nav-right">
+      <a class="pill" href="#"><span>Pay Bill</span></a>
+      <a class="pill lime" href="#"><span>Book</span><span class="arr">→</span></a>
+      <button class="icon-btn" aria-label="Menu">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3h12M1 7h12M1 11h12"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" data-screen-label="01 Hero">
+  <div class="hero-row">
+    <div>
+      <div class="hero-tag">
+        <span class="dot"></span>
+        <span>Considered Vision Care · Est. 1973</span>
+      </div>
+      <h1>
+        <span class="line"><span>Meets Vision,</span></span>
+        <span class="line"><span>Redefined with</span></span>
+        <span class="line"><span><span class="em">Intention</span>.</span></span>
+      </h1>
+    </div>
+    <div class="hero-right">
+      <p>A new chapter in eye care for the Finger Lakes — surgical precision, optometric craft, and human warmth, designed into every step of a patient's visit.</p>
+      <div class="hero-actions">
+        <a class="pill" href="#">Got any questions?</a>
+        <a class="pill lime" href="#"><span>Contact us</span></a>
+        <button class="arr-btn" aria-label="Scroll">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 2v10M3 8l4 4 4-4"/></svg>
+        </button>
+      </div>
+      <div class="trust">
+        <div class="avs">
+          <span class="av a"></span>
+          <span class="av b"></span>
+          <span class="av c"></span>
+        </div>
+        <div class="num">
+          <span class="v">200,000+</span>
+          <span class="k">Patients trusted to our care</span>
+        </div>
+        <span class="pipe"></span>
+        <div class="stars">
+          <span class="ss">
+            <span class="sq"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></span>
+            <span class="sq"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></span>
+            <span class="sq"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></span>
+            <span class="sq"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></span>
+            <span class="sq"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></span>
+          </span>
+          <span class="label">Trustpilot</span>
+          <span class="dot"></span>
+          <span class="label"><b>4.9</b> · 1,247 reviews</span>
+          <span class="dot"></span>
+          <span class="label ex">Excellent</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-rail">
+    <article class="gcard v1" aria-label="Cataract">
+      <div class="bg bg-1"></div>
+      <img class="portrait" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&h=800&fit=crop&crop=faces&auto=format&q=80" alt="" loading="eager" referrerpolicy="no-referrer" />
+      <div class="tint"></div>
+      <div class="veil"></div>
+      <div class="chip-row">
+        <span class="chip">Surgical</span>
+      </div>
+      <div class="foot">
+        <span class="name">Cataract<br>Surgery</span>
+        <a class="discover" href="#"><span>Discover</span><span class="a">→</span></a>
+      </div>
+    </article>
+    <article class="gcard v2" aria-label="LASIK">
+      <div class="bg bg-2"></div>
+      <img class="portrait" src="https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=600&h=800&fit=crop&crop=faces&auto=format&q=80" alt="" loading="eager" referrerpolicy="no-referrer" />
+      <div class="tint"></div>
+      <div class="veil"></div>
+      <div class="chip-row">
+        <span class="chip">Refractive</span>
+      </div>
+      <div class="foot">
+        <span class="name">LASIK &amp;<br>Vision</span>
+        <a class="discover" href="#"><span>Discover</span><span class="a">→</span></a>
+      </div>
+    </article>
+    <article class="gcard v3" aria-label="Optical Studio">
+      <div class="bg bg-3"></div>
+      <img class="portrait" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=600&h=800&fit=crop&crop=faces&auto=format&q=80" alt="" loading="eager" referrerpolicy="no-referrer" />
+      <div class="tint"></div>
+      <div class="veil"></div>
+      <div class="chip-row">
+        <span class="chip">Optical</span>
+      </div>
+      <div class="foot">
+        <span class="name">Eyewear<br>Studio</span>
+        <a class="discover" href="#"><span>Discover</span><span class="a">→</span></a>
+      </div>
+    </article>
+    <article class="gcard v4" aria-label="Aesthetic">
+      <div class="bg bg-4"></div>
+      <img class="portrait" src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=600&h=800&fit=crop&crop=faces&auto=format&q=80" alt="" loading="eager" referrerpolicy="no-referrer" />
+      <div class="tint"></div>
+      <div class="veil"></div>
+      <div class="chip-row">
+        <span class="chip">Aesthetic</span>
+      </div>
+      <div class="foot">
+        <span class="name">Replenish<br>Skin</span>
+        <a class="discover" href="#"><span>Discover</span><span class="a">→</span></a>
+      </div>
+    </article>
+  </div>
+
+  <!-- Stats ticker -->
+  <div class="ticker" aria-hidden="false">
+    <div class="ticker-track">
+      <span class="t-item"><b>53 yrs</b> continuously practicing</span><span class="t-sep">✦</span>
+      <span class="t-item"><b>200,000+</b> patients</span><span class="t-sep">✦</span>
+      <span class="t-item"><b>14</b> board-certified physicians</span><span class="t-sep">✦</span>
+      <span class="t-item"><b>03</b> Finger Lakes locations</span><span class="t-sep">✦</span>
+      <span class="t-item"><b>4.9 / 5</b> patient rating</span><span class="t-sep">✦</span>
+      <span class="t-item">— Considered eye care, <i>quietly practiced</i> since 1973</span><span class="t-sep">✦</span>
+      <!-- duplicated for seamless loop -->
+      <span class="t-item"><b>53 yrs</b> continuously practicing</span><span class="t-sep">✦</span>
+      <span class="t-item"><b>200,000+</b> patients</span><span class="t-sep">✦</span>
+      <span class="t-item"><b>14</b> board-certified physicians</span><span class="t-sep">✦</span>
+      <span class="t-item"><b>03</b> Finger Lakes locations</span><span class="t-sep">✦</span>
+      <span class="t-item"><b>4.9 / 5</b> patient rating</span><span class="t-sep">✦</span>
+      <span class="t-item">— Considered eye care, <i>quietly practiced</i> since 1973</span><span class="t-sep">✦</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ SERVICES ============ -->
+<section class="services" id="services" data-screen-label="02 Services">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> Practice · 01</div>
+        <h2 class="reveal">A full spectrum<br>of <span class="em">vision care</span>,<br>under one practice.</h2>
+      </div>
+      <div class="right">
+        <p class="reveal d1">Four disciplines, delivered by fellowship-trained physicians who collaborate across surgical, optometric, optical, and aesthetic care — one record, one team, one standard.</p>
+        <a class="pill" href="#"><span>All Services</span><span class="arr">→</span></a>
+      </div>
+    </div>
+
+    <div class="svc-grid">
+      <article class="svc reveal">
+        <div class="svc-head">
+          <span class="svc-num">01 / Surgical</span>
+        </div>
+        <div class="svc-img a">
+          <span class="corner-chip">Cataract</span>
+          <span class="id-stamp">C_001</span>
+        </div>
+        <h3>Laser Cataract <span class="em">Surgery</span></h3>
+        <p>Femtosecond laser correction by surgeons who pioneered the technique regionally. Outpatient, often without glasses after.</p>
+        <div class="svc-foot">
+          <span class="tag">Outpatient · 30 min</span>
+          <span class="arr">→</span>
+        </div>
+      </article>
+
+      <article class="svc reveal d1">
+        <div class="svc-head">
+          <span class="svc-num">02 / Refractive</span>
+        </div>
+        <div class="svc-img b">
+          <span class="corner-chip">LASIK</span>
+          <span class="id-stamp">L_002</span>
+        </div>
+        <h3>LASIK & <span class="em">Refractive</span></h3>
+        <p>A meticulous pathway to life without correction — wavefront-guided, all-laser, led by surgeons (never sales staff).</p>
+        <div class="svc-foot">
+          <span class="tag">Same-day · Bladeless</span>
+          <span class="arr">→</span>
+        </div>
+      </article>
+
+      <article class="svc reveal d2">
+        <div class="svc-head">
+          <span class="svc-num">03 / Optical</span>
+        </div>
+        <div class="svc-img c">
+          <span class="corner-chip">Studio</span>
+          <span class="id-stamp">O_003</span>
+        </div>
+        <h3>Optical & <span class="em">Lenses</span></h3>
+        <p>A tightly edited bench of European and American eyewear, with precision lens craft and a styling appointment by reservation.</p>
+        <div class="svc-foot">
+          <span class="tag">By appointment</span>
+          <span class="arr">→</span>
+        </div>
+      </article>
+
+      <article class="svc reveal d3">
+        <div class="svc-head">
+          <span class="svc-num">04 / Aesthetic</span>
+        </div>
+        <div class="svc-img d">
+          <span class="corner-chip">Replenish</span>
+          <span class="id-stamp">A_004</span>
+        </div>
+        <h3>Cosmetic <span class="em">Treatments</span></h3>
+        <p>Restorative aesthetics — Botox, dermal filler, Ultherapy, and the Replenish program — by clinicians with surgical precision.</p>
+        <div class="svc-foot">
+          <span class="tag">Replenish Skin</span>
+          <span class="arr">→</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EYEWEAR / NEW ARRIVALS ============ -->
+<section class="eyewear" id="eyewear" data-screen-label="03 Eyewear">
+  <div class="container">
+    <div class="eyewear-head">
+      <div>
+        <div class="eyebrow reveal"><span class="dot"></span> Optical Studio · New This Season</div>
+        <h2 class="reveal d1">New Arrivals.</h2>
+      </div>
+      <div class="right reveal d2">
+        <p>A tightly edited selection from our independent eyewear bench. Try in-studio, or use the AR fitting tool from any product.</p>
+        <a class="pill" href="#"><span>See all frames</span><span class="arr">→</span></a>
+      </div>
+    </div>
+
+    <div class="eyewear-grid">
+      <article class="prod reveal">
+        <div class="prod-top">
+          <span class="prod-tag hot">Best Sellers</span>
+          <span class="prod-colours">3 Colourways <span class="dots"><span class="dt" style="background:#2C3A4A;"></span><span class="dt" style="background:#7A6450;"></span><span class="dt" style="background:#C9B89A;"></span></span></span>
+        </div>
+        <div class="prod-img">
+          <div class="stripes"></div>
+          <svg class="gl" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#2C3A4A" stroke-width="3.5" stroke-linecap="round">
+              <ellipse cx="55" cy="40" rx="34" ry="26" fill="rgba(44,58,74,.08)"/>
+              <ellipse cx="145" cy="40" rx="34" ry="26" fill="rgba(44,58,74,.08)"/>
+              <path d="M89 40 Q100 32 111 40"/>
+              <path d="M21 32 L6 26"/>
+              <path d="M179 32 L194 26"/>
+            </g>
+          </svg>
+        </div>
+        <div class="prod-body">
+          <div class="prod-info">
+            <span class="model">AP2548 · Optics</span>
+            <span class="brand">Garrett Leight</span>
+            <span class="price">$284</span>
+          </div>
+          <button class="prod-ar" aria-label="Try on with AR">
+            <svg viewBox="0 0 24 24"><path d="M3 7V4h4M21 7V4h-4M3 17v3h4M21 17v3h-4"/><circle cx="9" cy="12" r="3"/><circle cx="15" cy="12" r="3"/><path d="M12 12h0"/></svg>
+          </button>
+        </div>
+      </article>
+
+      <article class="prod reveal d1">
+        <div class="prod-top">
+          <span class="prod-tag cool">Top Pick</span>
+          <span class="prod-colours">2 Colourways <span class="dots"><span class="dt" style="background:#1A1F1C;"></span><span class="dt" style="background:#A89880;"></span></span></span>
+        </div>
+        <div class="prod-img">
+          <div class="stripes"></div>
+          <svg class="gl" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#1A1F1C" stroke-width="3" stroke-linecap="round">
+              <rect x="22" y="22" width="64" height="36" rx="8" fill="rgba(26,31,28,.06)"/>
+              <rect x="114" y="22" width="64" height="36" rx="8" fill="rgba(26,31,28,.06)"/>
+              <path d="M86 40 L114 40"/>
+              <path d="M22 28 L8 24"/>
+              <path d="M178 28 L192 24"/>
+            </g>
+          </svg>
+        </div>
+        <div class="prod-body">
+          <div class="prod-info">
+            <span class="model">PE0314 · Optics</span>
+            <span class="brand">Persol</span>
+            <span class="price">$396</span>
+          </div>
+          <button class="prod-ar" aria-label="Try on with AR">
+            <svg viewBox="0 0 24 24"><path d="M3 7V4h4M21 7V4h-4M3 17v3h4M21 17v3h-4"/><circle cx="9" cy="12" r="3"/><circle cx="15" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </article>
+
+      <article class="prod reveal d2">
+        <div class="prod-top">
+          <span class="prod-tag warm">Editor's Choice</span>
+          <span class="prod-colours">4 Colourways <span class="dots"><span class="dt" style="background:#8B5A3C;"></span><span class="dt" style="background:#D4A574;"></span><span class="dt" style="background:#2C2825;"></span><span class="dt" style="background:#A8908C;"></span></span></span>
+        </div>
+        <div class="prod-img">
+          <div class="stripes"></div>
+          <svg class="gl" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#8B5A3C" stroke-width="3.5" stroke-linecap="round">
+              <path d="M22 28 Q22 22 30 22 L78 22 Q88 22 88 32 L88 48 Q88 58 78 58 L30 58 Q22 58 22 50 Z" fill="rgba(139,90,60,.1)"/>
+              <path d="M114 28 Q114 22 122 22 L170 22 Q178 22 178 32 L178 48 Q178 58 170 58 L122 58 Q114 58 114 50 Z" fill="rgba(139,90,60,.1)"/>
+              <path d="M88 38 L114 38"/>
+              <path d="M22 28 L8 26"/>
+              <path d="M178 28 L192 26"/>
+            </g>
+          </svg>
+        </div>
+        <div class="prod-body">
+          <div class="prod-info">
+            <span class="model">OV5419 · Optics</span>
+            <span class="brand">Oliver Peoples</span>
+            <span class="price">$485</span>
+          </div>
+          <button class="prod-ar" aria-label="Try on with AR">
+            <svg viewBox="0 0 24 24"><path d="M3 7V4h4M21 7V4h-4M3 17v3h4M21 17v3h-4"/><circle cx="9" cy="12" r="3"/><circle cx="15" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </article>
+
+      <article class="prod reveal d3">
+        <div class="prod-top">
+          <span class="prod-tag fresh">New In</span>
+          <span class="prod-colours">3 Colourways <span class="dots"><span class="dt" style="background:#3A4A38;"></span><span class="dt" style="background:#C9C2A8;"></span><span class="dt" style="background:#1A1F1C;"></span></span></span>
+        </div>
+        <div class="prod-img">
+          <div class="stripes"></div>
+          <svg class="gl" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#3A4A38" stroke-width="3" stroke-linecap="round">
+              <path d="M22 32 Q22 22 36 22 L74 22 Q88 22 88 36 L86 46 Q84 56 70 56 L36 56 Q22 56 22 44 Z" fill="rgba(58,74,56,.1)"/>
+              <path d="M114 32 Q114 22 128 22 L166 22 Q180 22 180 36 L178 46 Q176 56 162 56 L128 56 Q114 56 114 44 Z" fill="rgba(58,74,56,.1)"/>
+              <path d="M88 36 Q100 30 114 36"/>
+              <path d="M22 30 L8 28"/>
+              <path d="M180 30 L194 28"/>
+            </g>
+          </svg>
+        </div>
+        <div class="prod-body">
+          <div class="prod-info">
+            <span class="model">MJ0492 · Optics</span>
+            <span class="brand">Moscot Lemtosh</span>
+            <span class="price">$329</span>
+          </div>
+          <button class="prod-ar" aria-label="Try on with AR">
+            <svg viewBox="0 0 24 24"><path d="M3 7V4h4M21 7V4h-4M3 17v3h4M21 17v3h-4"/><circle cx="9" cy="12" r="3"/><circle cx="15" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOCTORS ============ -->
+<section class="doctors" id="doctors" data-screen-label="04 Doctors">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> Physicians · 02</div>
+        <h2 class="reveal">Surgeons,<br>optometrists, and<br>people who <span class="em">remember you</span>.</h2>
+      </div>
+      <div class="right">
+        <p class="reveal d1">Sixty-five specialists. Fourteen board-certified physicians. One independent practice — the surgeon who first sees you is the surgeon who follows up.</p>
+        <a class="pill" href="#"><span>Meet the team</span><span class="arr">→</span></a>
+      </div>
+    </div>
+
+    <div class="doc-grid">
+      <article class="doc reveal">
+        <div class="doc-img a">
+          <span class="id">DR_01</span>
+          <span class="badge">Senior Partner</span>
+          <span class="ring" aria-hidden="true"></span>
+        </div>
+        <div class="doc-body">
+          <h4>Margaret Vance, M.D.</h4>
+          <div class="role">Cornea · Cataract · Refractive</div>
+          <p>Cornell-trained corneal specialist. Lead refractive surgeon.</p>
+          <div class="doc-foot">
+            <span class="loc">Canandaigua</span>
+            <span class="arr">→</span>
+          </div>
+        </div>
+      </article>
+      <article class="doc reveal d1">
+        <div class="doc-img b">
+          <span class="id">DR_02</span>
+          <span class="badge">Vitreoretinal</span>
+          <span class="ring" aria-hidden="true"></span>
+        </div>
+        <div class="doc-body">
+          <h4>Daniel Okafor, M.D.</h4>
+          <div class="role">Vitreoretinal Surgery</div>
+          <p>Retinal disease, diabetic care, complex reconstruction. 20 years with the practice.</p>
+          <div class="doc-foot">
+            <span class="loc">Geneva · Macedon</span>
+            <span class="arr">→</span>
+          </div>
+        </div>
+      </article>
+      <article class="doc reveal d2">
+        <div class="doc-img c">
+          <span class="id">DR_03</span>
+          <span class="badge">Optometry</span>
+          <span class="ring" aria-hidden="true"></span>
+        </div>
+        <div class="doc-body">
+          <h4>Hannah Reiss, O.D.</h4>
+          <div class="role">Pediatric & Family</div>
+          <p>Comprehensive pediatric care, vision therapy, near-perfect five-star record.</p>
+          <div class="doc-foot">
+            <span class="loc">Canandaigua</span>
+            <span class="arr">→</span>
+          </div>
+        </div>
+      </article>
+      <article class="doc reveal d3">
+        <div class="doc-img d">
+          <span class="id">DR_04</span>
+          <span class="badge">Glaucoma</span>
+          <span class="ring" aria-hidden="true"></span>
+        </div>
+        <div class="doc-body">
+          <h4>Jiro Tanaka, M.D.</h4>
+          <div class="role">Glaucoma · Anterior Segment</div>
+          <p>Glaucoma micro-surgery and the only MIGS-specialty surgeon in the Finger Lakes.</p>
+          <div class="doc-foot">
+            <span class="loc">Macedon</span>
+            <span class="arr">→</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="doc-cta-row reveal">
+      <div class="left">
+        <p>"We take the long view. Most of our patients have been with us for a decade — many for thirty years. That continuity <em>is</em> the practice."
+          <span class="by">Dr. Margaret Vance · Senior Partner</span>
+        </p>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <a class="pill" href="#"><span>Read our story</span></a>
+        <a class="pill lime" href="#"><span>Meet all 14</span><span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORTAL ============ -->
+<section class="portal" id="portal" data-screen-label="05 Portal">
+  <div class="container">
+    <div class="portal-grid">
+      <div class="portal-left">
+        <div class="eyebrow"><span class="dot"></span> For Patients · 03</div>
+        <h2 class="reveal">Your record,<br>your time, <span class="em">your terms</span>.</h2>
+        <p class="reveal d1">A patient portal that respects the hours you actually have. Forms before you arrive. Bills paid in a tap. Records available whenever you need them.</p>
+
+        <ul class="portal-list reveal d2">
+          <li><span class="n">01</span><span class="t">Pre-visit forms & insurance</span><span class="a">→</span></li>
+          <li><span class="n">02</span><span class="t">Pay bills & view statements</span><span class="a">→</span></li>
+          <li><span class="n">03</span><span class="t">Request refills & referrals</span><span class="a">→</span></li>
+          <li><span class="n">04</span><span class="t">Download records & imaging</span><span class="a">→</span></li>
+        </ul>
+
+        <div class="portal-actions">
+          <a class="pill lime" href="#"><span>Enter Patient Portal</span><span class="arr">→</span></a>
+          <a class="pill" href="#"><span>Create account</span></a>
+        </div>
+      </div>
+
+      <aside class="portal-card reveal d1" aria-label="Portal preview">
+        <div class="pc-top">
+          <div class="pc-id"><span class="pulse"></span><span>Patient · M.HARTLEY</span></div>
+          <div>26 · 05 · 2026</div>
+        </div>
+        <div class="pc-display">Good <span class="em">morning</span>,<br>Margaret.</div>
+        <div class="pc-rows">
+          <div class="row"><span class="k">Next appointment</span><span class="v">June 12 · Geneva</span></div>
+          <div class="row"><span class="k">Outstanding balance</span><span class="v lime">$0.00 · Settled</span></div>
+          <div class="row"><span class="k">Pending forms</span><span class="v">None</span></div>
+          <div class="row"><span class="k">Last visit</span><span class="v">Apr 04 · Dr. Vance</span></div>
+        </div>
+        <div class="pc-foot">
+          <span>Secure · HIPAA</span>
+          <span>v 4.2 · 2026</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSIGHTS ============ -->
+<section class="insights" id="insights" data-screen-label="06 Insights">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> Journal · 04</div>
+        <h2 class="reveal">A small journal<br>on <span class="em">seeing well</span>.</h2>
+      </div>
+      <div class="right">
+        <p class="reveal d1">Considered writing from our physicians — on what we recommend, what we caution against, and what we're paying attention to in research and procedure.</p>
+        <a class="pill" href="#"><span>All essays</span><span class="arr">→</span></a>
+      </div>
+    </div>
+
+    <div class="ins-grid">
+      <article class="ins lead reveal">
+        <div class="ins-img a">
+          <span class="chip lime">Research</span>
+          <span class="id">EDITORIAL_07</span>
+        </div>
+        <div class="ins-meta">
+          <span class="cat">Research</span><span class="sep"></span>
+          <span>May 20, 2026</span><span class="sep"></span>
+          <span>9 min read</span>
+        </div>
+        <h3>The screen-time question, finally answered with measurable data — <span class="em">not headlines</span>.</h3>
+        <p>Three years of in-practice data on accommodative strain, blue light exposure, and the specific habits that move the needle. A practical brief from our optometry team.</p>
+        <div class="ins-read">
+          <span class="by">By Dr. Hannah Reiss</span>
+          <span class="more">Read essay →</span>
+        </div>
+      </article>
+
+      <article class="ins reveal d1">
+        <div class="ins-img b">
+          <span class="chip">Guide</span>
+          <span class="id">EDITORIAL_06</span>
+        </div>
+        <div class="ins-meta">
+          <span class="cat">Guide</span><span class="sep"></span>
+          <span>Feb 26, 2026</span>
+        </div>
+        <h3>What to expect from a comprehensive exam.</h3>
+        <p>A walkthrough of an annual visit — and how to read what your numbers mean.</p>
+        <div class="ins-read">
+          <span class="by">5 min</span>
+          <span class="more">Read →</span>
+        </div>
+      </article>
+
+      <article class="ins reveal d2">
+        <div class="ins-img c">
+          <span class="chip">Procedure</span>
+          <span class="id">EDITORIAL_05</span>
+        </div>
+        <div class="ins-meta">
+          <span class="cat">Procedure</span><span class="sep"></span>
+          <span>Nov 21, 2025</span>
+        </div>
+        <h3>Modern LASIK: safe, precise, customized.</h3>
+        <p>How wavefront-guided mapping changed the calculus on refractive surgery in 2026.</p>
+        <div class="ins-read">
+          <span class="by">7 min</span>
+          <span class="more">Read →</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot" data-screen-label="07 Footer">
+  <div class="foot-card">
+
+    <div class="foot-locs">
+      <article class="foot-loc">
+        <div class="foot-loc-top"><span>01 — Flagship</span><span>Est. 1973</span></div>
+        <h4>Canandaigua</h4>
+        <div class="addr">325 West Street<br>Canandaigua, NY 14424</div>
+        <div class="phone">585 · 394 · 2020</div>
+        <div class="lf"><span>Mon–Fri · 8–6</span><a href="#">Directions →</a></div>
+      </article>
+      <article class="foot-loc">
+        <div class="foot-loc-top"><span>02</span><span>Est. 1991</span></div>
+        <h4>Geneva</h4>
+        <div class="addr">784 Pre-Emption Road<br>Geneva, NY 14456</div>
+        <div class="phone">315 · 789 · 4499</div>
+        <div class="lf"><span>Mon–Fri · 8–6</span><a href="#">Directions →</a></div>
+      </article>
+      <article class="foot-loc">
+        <div class="foot-loc-top"><span>03</span><span>Est. 2008</span></div>
+        <h4>Macedon</h4>
+        <div class="addr">1025 Brixton Drive<br>Macedon, NY 14502</div>
+        <div class="phone">315 · 986 · 0070</div>
+        <div class="lf"><span>Mon–Fri · 8–6</span><a href="#">Directions →</a></div>
+      </article>
+    </div>
+
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="#" class="brand">
+          <span class="brand-glyph" aria-hidden="true" style="background: radial-gradient(circle at 35% 35%, #fff 0%, #cfd9d1 40%, #7e9087 100%);"></span>
+          <span class="brand-name" style="color:#F1F0EA;">eyecare<sup style="opacity:.6;">®</sup></span>
+        </a>
+        <p class="quote">"Considered eye care, <span class="em">quietly practiced</span> in the Finger Lakes since 1973."</p>
+        <a class="pill lime" href="#"><span>Book a consultation</span><span class="arr">→</span></a>
+      </div>
+      <div class="foot-col">
+        <h5>Practice</h5>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Physicians</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press & Journal</a></li>
+          <li><a href="#">Testimonials</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#">Laser Cataract</a></li>
+          <li><a href="#">LASIK</a></li>
+          <li><a href="#">Optical Studio</a></li>
+          <li><a href="#">Cosmetic</a></li>
+          <li><a href="#">Replenish Skin</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Patients</h5>
+        <ul>
+          <li><a href="#">Patient Portal</a></li>
+          <li><a href="#">Pay Your Bill</a></li>
+          <li><a href="#">Order Contacts</a></li>
+          <li><a href="#">Try Frames Online</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 The Eye Care Center, P.C.</span>
+      <div class="links">
+        <a href="#">Privacy</a>
+        <a href="#">Sitemap</a>
+        <a href="#">HIPAA</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky booking bar -->
+<div class="sticky-book" id="stickyBook" aria-label="Book">
+  <div class="sb-loc" id="sbLoc">
+    <span class="lbl">Location</span>
+    <span class="val" id="sbLocVal">Canandaigua</span>
+    <div class="sb-dropdown" id="sbDropdown">
+      <div class="sb-opt active" data-city="Canandaigua"><span class="city">Canandaigua</span><span class="dist">325 West St · Flagship</span></div>
+      <div class="sb-opt" data-city="Geneva"><span class="city">Geneva</span><span class="dist">784 Pre-Emption Rd</span></div>
+      <div class="sb-opt" data-city="Macedon"><span class="city">Macedon</span><span class="dist">1025 Brixton Dr</span></div>
+    </div>
+  </div>
+  <a class="sb-book" href="#"><span>Book consultation</span><span>→</span></a>
+</div>
+
+<!-- Tweaks panel -->
+<div class="tweaks" id="tweaks" aria-hidden="true">
+  <div class="tweaks-head">
+    <h6>Tweaks</h6>
+    <button class="x" id="tweaksClose" aria-label="Close">✕</button>
+  </div>
+  <div class="tw-group">
+    <span class="tw-label">Accent color</span>
+    <div class="tw-swatches" id="twAccent">
+      <div class="tw-swatch" data-val="lime" style="background:#D6F25E;"></div>
+      <div class="tw-swatch" data-val="coral" style="background:#FF7B5A;"></div>
+      <div class="tw-swatch" data-val="cobalt" style="background:#5A8BFF;"></div>
+      <div class="tw-swatch" data-val="amber" style="background:#F2C94C;"></div>
+    </div>
+  </div>
+  <div class="tw-group">
+    <span class="tw-label">Card radius</span>
+    <div class="tw-row" id="twRadius">
+      <div class="tw-opt" data-val="sharp">Sharp</div>
+      <div class="tw-opt" data-val="soft">Soft</div>
+      <div class="tw-opt" data-val="pillowy">Pillowy</div>
+    </div>
+  </div>
+  <div class="tw-group">
+    <span class="tw-label">Density</span>
+    <div class="tw-row" id="twDensity">
+      <div class="tw-opt" data-val="compact">Compact</div>
+      <div class="tw-opt" data-val="current">Current</div>
+      <div class="tw-opt" data-val="spacious">Spacious</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ===== Tweak defaults (rewritten by host on persistence) ===== */
+  const TWEAKS = /*EDITMODE-BEGIN*/{
+    "accent": "coral",
+    "radius": "soft",
+    "density": "spacious"
+  }/*EDITMODE-END*/;
+
+  function applyTweaks(t){
+    document.body.dataset.accent = t.accent;
+    document.body.dataset.radius = t.radius;
+    document.body.dataset.density = t.density;
+    // visual selected state
+    document.querySelectorAll('#twAccent .tw-swatch').forEach(el => el.classList.toggle('active', el.dataset.val === t.accent));
+    document.querySelectorAll('#twRadius .tw-opt').forEach(el => el.classList.toggle('active', el.dataset.val === t.radius));
+    document.querySelectorAll('#twDensity .tw-opt').forEach(el => el.classList.toggle('active', el.dataset.val === t.density));
+  }
+  applyTweaks(TWEAKS);
+
+  function setTweak(key, val){
+    TWEAKS[key] = val;
+    applyTweaks(TWEAKS);
+    try{
+      window.parent.postMessage({type:'__edit_mode_set_keys', edits:{[key]: val}}, '*');
+    }catch(e){}
+  }
+
+  // Wire up controls
+  document.querySelectorAll('#twAccent .tw-swatch').forEach(el => {
+    el.addEventListener('click', () => setTweak('accent', el.dataset.val));
+  });
+  document.querySelectorAll('#twRadius .tw-opt').forEach(el => {
+    el.addEventListener('click', () => setTweak('radius', el.dataset.val));
+  });
+  document.querySelectorAll('#twDensity .tw-opt').forEach(el => {
+    el.addEventListener('click', () => setTweak('density', el.dataset.val));
+  });
+
+  /* ===== Tweaks panel toggle (responds to host) ===== */
+  const tweaks = document.getElementById('tweaks');
+  const toggle = document.querySelector('.tweaks-toggle');
+  function showTweaks(on){
+    tweaks.classList.toggle('show', on);
+    if (toggle) toggle.classList.toggle('active', on);
+  }
+  window.addEventListener('message', (e) => {
+    if (!e.data) return;
+    if (e.data.type === '__activate_edit_mode') showTweaks(true);
+    if (e.data.type === '__deactivate_edit_mode') showTweaks(false);
+  });
+  try{ window.parent.postMessage({type:'__edit_mode_available'}, '*'); }catch(e){}
+  document.getElementById('tweaksClose').addEventListener('click', () => {
+    showTweaks(false);
+    try{ window.parent.postMessage({type:'__edit_mode_dismissed'}, '*'); }catch(e){}
+  });
+  if (toggle) toggle.addEventListener('click', () => {
+    const isOn = tweaks.classList.contains('show');
+    showTweaks(!isOn);
+  });
+
+  /* ===== Sticky booking bar ===== */
+  const sticky = document.getElementById('stickyBook');
+  const heroEl = document.querySelector('.hero');
+  const stickyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      sticky.classList.toggle('show', !en.isIntersecting);
+    });
+  }, {threshold: 0.05});
+  if (heroEl) stickyObserver.observe(heroEl);
+
+  // Location dropdown
+  const sbLoc = document.getElementById('sbLoc');
+  const sbLocVal = document.getElementById('sbLocVal');
+  sbLoc.addEventListener('click', (e) => {
+    e.stopPropagation();
+    sbLoc.classList.toggle('open');
+  });
+  document.querySelectorAll('.sb-opt').forEach(opt => {
+    opt.addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.querySelectorAll('.sb-opt').forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      sbLocVal.textContent = opt.dataset.city;
+      sbLoc.classList.remove('open');
+    });
+  });
+  document.addEventListener('click', () => sbLoc.classList.remove('open'));
+
+  /* ===== Parallax on discover cards ===== */
+  const cards = document.querySelectorAll('.card-rail .gcard');
+  const rates = [0.05, -0.03, 0.04, -0.06];
+  let ticking = false;
+  function onScroll(){
+    const y = window.scrollY;
+    cards.forEach((c, i) => {
+      // clamp so cards don't drift far when hero is out of view
+      const clamped = Math.max(-80, Math.min(80, y * rates[i % rates.length]));
+      c.style.translate = `0 ${clamped}px`;
+    });
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking){ requestAnimationFrame(onScroll); ticking = true; }
+  }, {passive:true});
+
+  /* ===== Reveal on scroll ===== */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.12, rootMargin: "0px 0px -8% 0px"});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
