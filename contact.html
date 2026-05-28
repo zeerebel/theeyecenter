@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contact & Booking — The Eye Care Center</title>
+<meta name="description" content="Request an appointment, ask a question, or reach any of our three Finger Lakes offices." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="contact" data-accent="coral" data-radius="soft" data-density="spacious">
+
+<div id="site-header"></div>
+
+<header class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb"><a href="index.html">Home</a><span class="sep">/</span><span class="here">Contact</span></nav>
+    <h1>Book a visit, or <span class="em">ask us anything</span>.</h1>
+    <p class="lede">Tell us a little about what you need and we'll match you with the right specialist. Most appointment requests are answered within one business day.</p>
+  </div>
+</header>
+
+<section style="padding-top:0;">
+  <div class="container">
+    <div class="contact-grid">
+
+      <aside class="contact-info reveal">
+        <h2>We're here, <span class="em">five days a week</span>.</h2>
+        <p>Prefer to talk to a person? Call the office nearest you — we answer our own phones.</p>
+        <div class="contact-detail">
+          <div class="item"><span class="lbl">Canandaigua · Flagship</span><a class="val" href="tel:5853942020">585 · 394 · 2020</a><span class="val" style="font-size:13px; color:rgba(241,240,234,.65);">325 West Street, NY 14424</span></div>
+          <div class="item"><span class="lbl">Geneva</span><a class="val" href="tel:3157894499">315 · 789 · 4499</a><span class="val" style="font-size:13px; color:rgba(241,240,234,.65);">784 Pre-Emption Road, NY 14456</span></div>
+          <div class="item"><span class="lbl">Macedon</span><a class="val" href="tel:3159860070">315 · 986 · 0070</a><span class="val" style="font-size:13px; color:rgba(241,240,234,.65);">1025 Brixton Drive, NY 14502</span></div>
+          <div class="item" style="border-bottom:0;"><span class="lbl">Email</span><a class="val" href="mailto:hello@theeyecarecenter.example">hello@theeyecarecenter.example</a><span class="val" style="font-size:13px; color:rgba(241,240,234,.65);">Mon–Fri · 8am–6pm</span></div>
+        </div>
+      </aside>
+
+      <div class="contact-form reveal d1" id="contactWrap">
+        <!-- To deliver real emails, set action to your endpoint (e.g. a Formspree
+             URL) and method to "post". With action left as "#" the form validates
+             and confirms in-page without sending. -->
+        <form id="contactForm" action="#" novalidate>
+          <div class="form-body">
+            <div class="form-row">
+              <div class="field" data-required>
+                <label for="cf-name">Full name <span class="req">*</span></label>
+                <input type="text" id="cf-name" name="name" autocomplete="name" placeholder="Jane Doe" />
+                <span class="error">Please enter your name.</span>
+              </div>
+              <div class="field" data-required>
+                <label for="cf-phone">Phone <span class="req">*</span></label>
+                <input type="tel" id="cf-phone" name="phone" autocomplete="tel" placeholder="(585) 000-0000" />
+                <span class="error">Please enter a valid phone number.</span>
+              </div>
+            </div>
+
+            <div class="field" data-required>
+              <label for="cf-email">Email <span class="req">*</span></label>
+              <input type="email" id="cf-email" name="email" autocomplete="email" placeholder="jane@example.com" />
+              <span class="error">Please enter a valid email address.</span>
+            </div>
+
+            <div class="form-row">
+              <div class="field" data-required>
+                <label for="cf-location">Preferred location <span class="req">*</span></label>
+                <select id="cf-location" name="location">
+                  <option value="">Choose…</option>
+                  <option>Canandaigua</option>
+                  <option>Geneva</option>
+                  <option>Macedon</option>
+                  <option>No preference</option>
+                </select>
+                <span class="error">Please choose a location.</span>
+              </div>
+              <div class="field">
+                <label for="cf-reason">Reason for visit</label>
+                <select id="cf-reason" name="reason">
+                  <option value="">Optional…</option>
+                  <option>Comprehensive exam</option>
+                  <option>Cataract consultation</option>
+                  <option>LASIK / refractive</option>
+                  <option>Eyewear &amp; lenses</option>
+                  <option>Cosmetic / Replenish</option>
+                  <option>Something else</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field" data-required>
+              <label for="cf-message">How can we help? <span class="req">*</span></label>
+              <textarea id="cf-message" name="message" placeholder="A sentence or two about what you're looking for, and the best times to reach you."></textarea>
+              <span class="error">Please add a short message.</span>
+            </div>
+
+            <div class="form-foot">
+              <p class="note">By submitting, you agree to be contacted about your request. Please don't include sensitive medical details.</p>
+              <button type="submit" class="btn-submit"><span>Send request</span><span class="arr">→</span></button>
+            </div>
+          </div>
+
+          <div class="form-success" id="formSuccess" role="status" aria-live="polite">
+            <span class="tick">✓</span>
+            <h3>Request received.</h3>
+            <p>Thank you — a member of our team will reach out within one business day to confirm your appointment. For anything urgent, please call your nearest office.</p>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+<div id="site-sticky"></div>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
