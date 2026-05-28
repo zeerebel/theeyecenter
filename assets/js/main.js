@@ -460,6 +460,44 @@
     els.forEach(function (el) { io.observe(el); });
   }
 
+  /* ---------- SECTION INDEX RAIL ---------- */
+  function wireSectionIndex() {
+    var labels = {
+      services: "Services", eyewear: "Eyewear", doctors: "Doctors",
+      portal: "Patients", insights: "Journal", locations: "Locations"
+    };
+    var sections = [].slice.call(document.querySelectorAll("section[id]"));
+    if (sections.length < 3) return;
+
+    var rail = document.createElement("nav");
+    rail.className = "section-rail";
+    rail.setAttribute("aria-label", "Section navigation");
+    rail.innerHTML = sections.map(function (s) {
+      var id = s.id;
+      var label = s.getAttribute("data-nav-label") || labels[id] ||
+        id.charAt(0).toUpperCase() + id.slice(1);
+      return '<a href="#' + id + '" data-target="' + id + '">' +
+        '<span class="lbl">' + label + '</span><span class="dot"></span></a>';
+    }).join("");
+    document.body.appendChild(rail);
+
+    var links = {};
+    rail.querySelectorAll("a").forEach(function (a) {
+      links[a.getAttribute("data-target")] = a;
+    });
+
+    if (!("IntersectionObserver" in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        Object.keys(links).forEach(function (k) { links[k].classList.remove("active"); });
+        var active = links[e.target.id];
+        if (active) active.classList.add("active");
+      });
+    }, { rootMargin: "-45% 0px -45% 0px" });
+    sections.forEach(function (s) { io.observe(s); });
+  }
+
   /* ---------- BRANDED FAVICON ---------- */
   function injectFavicon() {
     if (document.querySelector('link[rel="icon"]')) return;
@@ -490,6 +528,7 @@
     wireNavScroll();
     wireCardGlare();
     wireCountUp();
+    wireSectionIndex();
     injectFavicon();
   }
 
