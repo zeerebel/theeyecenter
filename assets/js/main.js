@@ -8,11 +8,11 @@
 
   // Pages in nav order. `key` matches data-page on each <body>.
   var NAV = [
-    { key: "services",  label: "Services",   href: "services.html" },
-    { key: "eyewear",   label: "Eyewear",    href: "eyewear.html" },
-    { key: "team",      label: "Physicians", href: "team.html" },
-    { key: "locations", label: "Locations",  href: "locations.html" },
-    { key: "about",     label: "About",      href: "about.html" }
+    { key: "eye-services",      label: "Eye Services",      href: "eye-services.html" },
+    { key: "cosmetic-services", label: "Cosmetic Services", href: "cosmetic-services.html" },
+    { key: "doctors",           label: "Doctors",           href: "doctors.html" },
+    { key: "locations",         label: "Locations",         href: "locations.html" },
+    { key: "about",             label: "About",             href: "about.html" }
   ];
 
   var current = document.body.getAttribute("data-page") || "home";
@@ -37,7 +37,7 @@
           '</a>' +
           '<div class="nav-links">' + navLinksHTML("active") + '</div>' +
           '<div class="nav-right">' +
-            '<a class="pill" href="contact.html"><span>Pay Bill</span></a>' +
+            '<a class="pill" href="pay-bill-online.html"><span>Pay Bill</span></a>' +
             '<a class="pill lime" href="contact.html"><span>Book</span><span class="arr">&rarr;</span></a>' +
             '<button class="icon-btn nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false">' +
               '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3h12M1 7h12M1 11h12"/></svg>' +
@@ -105,9 +105,9 @@
       '<footer class="foot">' +
         '<div class="foot-card">' +
           '<div class="foot-locs">' +
-            footLoc("01 &mdash; Flagship", "Est. 1973", "Canandaigua", "325 West Street", "Canandaigua, NY 14424", "585 &middot; 394 &middot; 2020") +
-            footLoc("02", "Est. 1991", "Geneva", "784 Pre-Emption Road", "Geneva, NY 14456", "315 &middot; 789 &middot; 4499") +
-            footLoc("03", "Est. 2008", "Macedon", "1025 Brixton Drive", "Macedon, NY 14502", "315 &middot; 986 &middot; 0070") +
+            footLoc("01 &mdash; Flagship", "Canandaigua", "Canandaigua", "325 West Street", "Canandaigua, NY 14424", "585 &middot; 394 &middot; 2020") +
+            footLoc("02", "Geneva", "Geneva", "784 Pre-Emption Road", "Geneva, NY 14456", "585 &middot; 394 &middot; 2020") +
+            footLoc("03", "Macedon", "Macedon", "1025 Brixton Drive", "Macedon, NY 14502", "585 &middot; 394 &middot; 2020") +
           '</div>' +
           '<div class="foot-top">' +
             '<div class="foot-brand">' +
@@ -119,16 +119,16 @@
               '<a class="pill lime" href="contact.html"><span>Book a consultation</span><span class="arr">&rarr;</span></a>' +
             '</div>' +
             footCol("Practice", [
-              ["About", "about.html"], ["Physicians", "team.html"], ["Careers", "about.html"],
-              ["Press &amp; Journal", "index.html#insights"], ["Testimonials", "about.html"]
+              ["About", "about.html"], ["Our Doctors", "doctors.html"], ["Employment", "employment.html"],
+              ["Testimonials", "testimonials.html"], ["Contact", "contact.html"]
             ]) +
             footCol("Services", [
-              ["Laser Cataract", "services.html"], ["LASIK", "services.html"], ["Optical Studio", "eyewear.html"],
-              ["Cosmetic", "services.html"], ["Replenish Skin", "services.html"]
+              ["Eye Services", "eye-services.html"], ["Cosmetic Services", "cosmetic-services.html"],
+              ["Locations", "locations.html"], ["Canandaigua", "location-canandaigua.html"]
             ]) +
             footCol("Patients", [
-              ["Patient Portal", "contact.html"], ["Pay Your Bill", "contact.html"], ["Order Contacts", "eyewear.html"],
-              ["Try Frames Online", "eyewear.html"], ["Contact", "contact.html"]
+              ["Patient Information", "patient-information.html"], ["Pay Bill Online", "pay-bill-online.html"],
+              ["Testimonials", "testimonials.html"], ["Contact", "contact.html"]
             ]) +
           '</div>' +
           '<div class="foot-bot">' +
@@ -147,7 +147,7 @@
       "<h4>" + name + "</h4>" +
       '<div class="addr">' + street + "<br>" + city + "</div>" +
       '<div class="phone">' + phone + "</div>" +
-      '<div class="lf"><span>Mon&ndash;Fri &middot; 8&ndash;6</span><a href="locations.html">Directions &rarr;</a></div>' +
+      '<div class="lf"><span>Finger Lakes, NY</span><a href="locations.html">Directions &rarr;</a></div>' +
       "</article>";
   }
 
