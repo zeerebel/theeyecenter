@@ -341,6 +341,37 @@
     }
   }
 
+  /* ---------- HEADER SCROLL STATE ---------- */
+  function wireNavScroll() {
+    var nav = document.querySelector(".nav");
+    if (!nav) return;
+    var ticking = false;
+    function apply() {
+      nav.classList.toggle("is-scrolled", window.scrollY > 24);
+      ticking = false;
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) { requestAnimationFrame(apply); ticking = true; }
+    }, { passive: true });
+    apply();
+  }
+
+  /* ---------- BRANDED FAVICON ---------- */
+  function injectFavicon() {
+    if (document.querySelector('link[rel="icon"]')) return;
+    var svg = "data:image/svg+xml," + encodeURIComponent(
+      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>" +
+      "<circle cx='16' cy='16' r='16' fill='#191D1A'/>" +
+      "<circle cx='16' cy='16' r='8.5' fill='none' stroke='#F1F0EA' stroke-width='2'/>" +
+      "<circle cx='16' cy='16' r='3' fill='#FF7B5A'/></svg>"
+    );
+    var link = document.createElement("link");
+    link.rel = "icon";
+    link.type = "image/svg+xml";
+    link.href = svg;
+    document.head.appendChild(link);
+  }
+
   /* ---------- INIT ---------- */
   function init() {
     renderHeader();
@@ -350,6 +381,8 @@
     wireReveal();
     wireFaq();
     wireContactForm();
+    wireNavScroll();
+    injectFavicon();
   }
 
   if (document.readyState === "loading") {
