@@ -358,6 +358,7 @@
 
   /* ---------- ACCENT SWITCHER (preview tool) ---------- */
   var ACCENTS = [
+    { val: "lime",  color: "#D6F25E", name: "Lime" },
     { val: "coral", color: "#FF7B5A", name: "Coral" },
     { val: "teal",  color: "#1F8A7E", name: "Deep teal" },
     { val: "brass", color: "#B0894E", name: "Muted brass" }
@@ -374,7 +375,7 @@
     var bar = document.createElement("div");
     bar.className = "accent-switch";
     bar.setAttribute("aria-label", "Preview accent color");
-    var current = document.body.dataset.accent || "coral";
+    var current = document.body.dataset.accent || "lime";
     bar.innerHTML =
       '<span class="lbl">Accent</span><div class="sws">' +
       ACCENTS.map(function (a) {
