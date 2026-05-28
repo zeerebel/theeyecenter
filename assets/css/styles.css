@@ -30,11 +30,15 @@
 body[data-accent="coral"]{ --lime:#FF7B5A; --lime-2:#F26A48; }
 body[data-accent="cobalt"]{ --lime:#5A8BFF; --lime-2:#4878F5; }
 body[data-accent="amber"]{ --lime:#F2C94C; --lime-2:#E5B83B; }
+body[data-accent="teal"]{ --lime:#1F8A7E; --lime-2:#176B61; }
+body[data-accent="brass"]{ --lime:#B0894E; --lime-2:#9A7540; }
 body[data-radius="sharp"]{ --radius-card: 6px; }
 body[data-radius="soft"]{ --radius-card: 18px; }
 body[data-radius="pillowy"]{ --radius-card: 28px; }
 body[data-accent="coral"] .pill.lime,
-body[data-accent="cobalt"] .pill.lime{ color:#fff; }
+body[data-accent="cobalt"] .pill.lime,
+body[data-accent="teal"] .pill.lime,
+body[data-accent="brass"] .pill.lime{ color:#fff; }
 body[data-accent="amber"] .pill.lime{ color:var(--ink); }
 
 *{box-sizing:border-box;}
@@ -835,6 +839,36 @@ footer.foot{padding: 60px 28px 32px;}
 .foot-brand .pill.lime{color:var(--ink); border-color:var(--lime);}
 .foot-brand .pill:hover{background:rgba(241,240,234,.1);}
 .foot-brand .pill.lime:hover{background:var(--lime-2);}
+
+/* ---------- ACCENT SWITCHER (preview tool) ---------- */
+.accent-switch{
+  position:fixed; left:20px; bottom:24px; z-index:85;
+  display:flex; align-items:center; gap:12px;
+  background:rgba(244,242,236,.85);
+  backdrop-filter:blur(20px) saturate(140%);
+  -webkit-backdrop-filter:blur(20px) saturate(140%);
+  border:1px solid rgba(255,255,255,.7);
+  border-radius:999px; padding:8px 16px;
+  box-shadow:0 18px 50px -20px rgba(25,29,26,.3);
+}
+.accent-switch .lbl{
+  font-family:"JetBrains Mono", monospace; font-size:10px;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--ink-mute);
+}
+.accent-switch .sws{display:flex; gap:8px;}
+.accent-switch .sw{
+  width:22px; height:22px; border-radius:50%; cursor:pointer;
+  border:2px solid transparent; padding:0;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);
+  transition:transform .2s ease, border-color .2s ease;
+}
+.accent-switch .sw:hover{transform:scale(1.14);}
+.accent-switch .sw.active{border-color:var(--ink);}
+@media (max-width: 680px){
+  .accent-switch{left:12px; bottom:12px; padding:7px 12px; gap:8px;}
+  .accent-switch .lbl{display:none;}
+}
+@media print{ .accent-switch{display:none;} }
 
 /* ---------- REVEAL ---------- */
 .reveal{opacity:0; transform:translateY(28px); transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1);}

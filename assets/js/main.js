@@ -356,6 +356,46 @@
     apply();
   }
 
+  /* ---------- ACCENT SWITCHER (preview tool) ---------- */
+  var ACCENTS = [
+    { val: "coral", color: "#FF7B5A", name: "Coral" },
+    { val: "teal",  color: "#1F8A7E", name: "Deep teal" },
+    { val: "brass", color: "#B0894E", name: "Muted brass" }
+  ];
+
+  function applyStoredAccent() {
+    try {
+      var saved = localStorage.getItem("tec-accent");
+      if (saved) document.body.dataset.accent = saved;
+    } catch (e) {}
+  }
+
+  function renderAccentSwitcher() {
+    var bar = document.createElement("div");
+    bar.className = "accent-switch";
+    bar.setAttribute("aria-label", "Preview accent color");
+    var current = document.body.dataset.accent || "coral";
+    bar.innerHTML =
+      '<span class="lbl">Accent</span><div class="sws">' +
+      ACCENTS.map(function (a) {
+        return '<button class="sw' + (a.val === current ? " active" : "") +
+          '" data-accent="' + a.val + '" title="' + a.name +
+          '" aria-label="' + a.name + '" style="background:' + a.color + ';"></button>';
+      }).join("") +
+      "</div>";
+    document.body.appendChild(bar);
+
+    bar.querySelectorAll(".sw").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var val = btn.getAttribute("data-accent");
+        document.body.dataset.accent = val;
+        try { localStorage.setItem("tec-accent", val); } catch (e) {}
+        bar.querySelectorAll(".sw").forEach(function (b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+      });
+    });
+  }
+
   /* ---------- BRANDED FAVICON ---------- */
   function injectFavicon() {
     if (document.querySelector('link[rel="icon"]')) return;
@@ -374,9 +414,11 @@
 
   /* ---------- INIT ---------- */
   function init() {
+    applyStoredAccent();
     renderHeader();
     renderFooter();
     renderStickyBar();
+    renderAccentSwitcher();
     wireParallax();
     wireReveal();
     wireFaq();
