@@ -348,6 +348,15 @@ body[data-density="spacious"] section{padding-top:160px; padding-bottom:160px;}
   transition: transform 1.1s cubic-bezier(.2,.7,.2,1);
 }
 .gcard:hover img.portrait{transform:scale(1.06);}
+/* Cursor-reactive sheen — sits above the image, below the caption (z-index 3) */
+.gcard{ --mx:50%; --my:50%; }
+.gcard::after{
+  content:""; position:absolute; inset:0; z-index:2; pointer-events:none;
+  background:radial-gradient(240px circle at var(--mx) var(--my), rgba(255,255,255,.22), transparent 62%);
+  opacity:0; transition:opacity .45s ease; mix-blend-mode:soft-light;
+}
+.gcard:hover::after{opacity:1;}
+@media (prefers-reduced-motion: reduce){ .gcard::after{display:none;} }
 .gcard .tint{position:absolute; inset:0; z-index:1; mix-blend-mode: multiply;}
 .gcard.v1 .tint{background: linear-gradient(180deg, rgba(110,130,152,.55) 0%, rgba(74,92,112,.7) 100%);}
 .gcard.v2 .tint{background: linear-gradient(180deg, rgba(200,184,104,.5) 0%, rgba(154,142,74,.65) 100%);}

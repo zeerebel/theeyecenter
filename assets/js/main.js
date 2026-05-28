@@ -396,6 +396,70 @@
     });
   }
 
+  /* ---------- CURSOR SHEEN ON CARDS ---------- */
+  function wireCardGlare() {
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    document.querySelectorAll(".card-rail .gcard").forEach(function (card) {
+      card.addEventListener("mousemove", function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100) + "%");
+        card.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100) + "%");
+      });
+    });
+  }
+
+  /* ---------- COUNT-UP STATS ---------- */
+  function wireCountUp() {
+    var els = document.querySelectorAll(".stats-inner .stat .v");
+    if (!els.length) return;
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced || !("IntersectionObserver" in window)) return;
+
+    function plan(raw) {
+      var suffix = (raw.match(/[+%]$/) || [""])[0];
+      var core = raw.replace(/[+%]$/, "");
+      if (!/^[\d,]+(\.\d+)?$/.test(core)) return null; // skip "24/7", "All", etc.
+      var comma = core.indexOf(",") !== -1;
+      var dec = core.indexOf(".") !== -1 ? core.split(".")[1].length : 0;
+      var pad = (!comma && dec === 0 && /^0\d/.test(core)) ? core.length : 0;
+      return { target: parseFloat(core.replace(/,/g, "")), suffix: suffix, comma: comma, dec: dec, pad: pad };
+    }
+
+    function fmt(v, p) {
+      var s = p.dec > 0 ? v.toFixed(p.dec) : String(Math.round(v));
+      if (p.pad) s = s.padStart(p.pad, "0");
+      if (p.comma) {
+        var parts = s.split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        s = parts.join(".");
+      }
+      return s + p.suffix;
+    }
+
+    function run(el, p) {
+      var dur = 1200, start = null;
+      function step(ts) {
+        if (start === null) start = ts;
+        var t = Math.min((ts - start) / dur, 1);
+        var eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = fmt(p.target * eased, p);
+        if (t < 1) requestAnimationFrame(step);
+        else el.textContent = fmt(p.target, p);
+      }
+      requestAnimationFrame(step);
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target, p = plan(el.textContent.trim());
+        io.unobserve(el);
+        if (p) run(el, p);
+      });
+    }, { threshold: 0.5 });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
   /* ---------- BRANDED FAVICON ---------- */
   function injectFavicon() {
     if (document.querySelector('link[rel="icon"]')) return;
@@ -424,6 +488,8 @@
     wireFaq();
     wireContactForm();
     wireNavScroll();
+    wireCardGlare();
+    wireCountUp();
     injectFavicon();
   }
 
