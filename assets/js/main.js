@@ -464,6 +464,67 @@
     els.forEach(function (el) { io.observe(el); });
   }
 
+  /* ---------- SCROLL-STACK CARDS ---------- */
+  function wireCardStack() {
+    document.querySelectorAll(".stack-section").forEach(function (section) {
+      var stack = section.querySelector(".stack-cards");
+      if (!stack) return;
+      var cards = Array.prototype.slice.call(stack.querySelectorAll(".stack-card"));
+      if (cards.length < 2) return;
+
+      var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduced) { section.classList.add("static"); return; }
+
+      var N = cards.length;
+      // Total scroll length: one viewport per card transition + a bit of breathing
+      section.style.height = (N * 95 + 40) + "vh";
+
+      var counter = section.querySelector(".stack-counter");
+      var offsetPerCard = 16; // px between resting cards (tight overlap)
+      var ease = function (t) { return 1 - Math.pow(1 - t, 3); };
+      var ticking = false;
+
+      function update() {
+        var rect = section.getBoundingClientRect();
+        var winH = window.innerHeight;
+        var total = section.offsetHeight - winH;
+        var scrolled = Math.max(0, Math.min(total, -rect.top));
+        var p = total > 0 ? scrolled / total : 0;
+
+        var activeIdx = 0;
+        cards.forEach(function (c, i) {
+          var y, opacity = 1;
+          if (i === 0) {
+            y = 0;
+          } else {
+            var t0 = (i - 1) / (N - 1);
+            var t1 = i / (N - 1);
+            var local = Math.max(0, Math.min(1, (p - t0) / (t1 - t0)));
+            if (local > 0.5) activeIdx = i;
+            var eased = ease(local);
+            var yStart = winH * 1.1; // start ~110vh below center
+            var yRest = i * offsetPerCard;
+            y = (1 - eased) * yStart + eased * yRest;
+          }
+          c.style.transform = "translate(-50%, calc(-50% + " + y + "px))";
+          c.style.zIndex = i + 1;
+          c.style.opacity = opacity;
+        });
+
+        if (counter) counter.textContent =
+          String(activeIdx + 1).padStart(2, "0") + " / " + String(N).padStart(2, "0");
+
+        ticking = false;
+      }
+      function onScroll() {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+      update();
+    });
+  }
+
   /* ---------- SECTION INDEX RAIL ---------- */
   function wireSectionIndex() {
     var labels = {
@@ -533,6 +594,7 @@
     wireCardGlare();
     wireCountUp();
     wireSectionIndex();
+    wireCardStack();
     injectFavicon();
   }
 
