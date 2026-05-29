@@ -232,6 +232,9 @@
   function wireParallax() {
     var cards = document.querySelectorAll(".card-rail .gcard");
     if (!cards.length) return;
+    // On small screens the cards become a sticky scroll-stack — skip the
+    // translate-based parallax so it doesn't fight the sticky positioning.
+    if (window.matchMedia && window.matchMedia("(max-width: 900px)").matches) return;
     var rates = [0.05, -0.03, 0.04, -0.06];
     var ticking = false;
     function onScroll() {
