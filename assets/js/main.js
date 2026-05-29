@@ -480,7 +480,11 @@
       section.style.height = (N * 95 + 40) + "vh";
 
       var counter = section.querySelector(".stack-counter");
-      var offsetPerCard = 16; // px between resting cards (tight overlap)
+      // Reveal per card ~20% of card height — keeps the previous card's
+      // header (chip + title + subheading) visible while preserving an
+      // ~80% overlap once the stack is fully built.
+      var cardH = cards[0].offsetHeight || 600;
+      var offsetPerCard = Math.max(80, Math.min(150, Math.round(cardH * 0.2)));
       var ease = function (t) { return 1 - Math.pow(1 - t, 3); };
       var ticking = false;
 
@@ -490,6 +494,11 @@
         var total = section.offsetHeight - winH;
         var scrolled = Math.max(0, Math.min(total, -rect.top));
         var p = total > 0 ? scrolled / total : 0;
+
+        // Recompute the per-card offset live so the reveal stays ~20% of
+        // the card's actual height (it changes with viewport width).
+        var ch = cards[0].offsetHeight || cardH;
+        offsetPerCard = Math.max(80, Math.min(150, Math.round(ch * 0.2)));
 
         var activeIdx = 0;
         cards.forEach(function (c, i) {
