@@ -1018,6 +1018,48 @@ footer.foot{padding: 60px 28px 32px;}
   text-shadow:0 1px 4px rgba(0,0,0,.28);
 }
 
+/* ---------- WORD-BY-WORD HEADLINE REVEAL ---------- */
+.section-head h2 .w, .page-hero h1 .w, .stack-head h2 .w{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(.45em);
+  transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+  transition-delay: calc(var(--i, 0) * .045s);
+  will-change: transform, opacity;
+}
+.section-head h2.in .w, .page-hero h1.in .w, .stack-head h2.in .w{
+  opacity:1; transform:none;
+}
+/* Don't hide the whole heading via .reveal — words handle the entrance */
+.section-head h2.reveal, .stack-head h2.reveal, .page-hero h1.reveal{
+  opacity:1; transform:none;
+}
+@media (prefers-reduced-motion: reduce){
+  .section-head h2 .w, .page-hero h1 .w, .stack-head h2 .w{ opacity:1; transform:none; transition:none; }
+}
+
+/* ---------- CUSTOM CURSOR ---------- */
+.custom-cursor{
+  position:fixed; top:0; left:0;
+  width:14px; height:14px;
+  border:1.5px solid var(--ink); border-radius:50%;
+  pointer-events:none; z-index:300;
+  transform: translate3d(-100px, -100px, 0);
+  transition: width .25s ease, height .25s ease, background .25s ease, border-color .25s ease;
+  mix-blend-mode: difference;
+}
+.custom-cursor.grow{
+  width:44px; height:44px;
+  background:var(--lime); border-color:var(--lime);
+}
+.has-cursor{ cursor:none; }
+.has-cursor input, .has-cursor select, .has-cursor textarea, .has-cursor [contenteditable]{ cursor:text; }
+@media (hover: none){ .custom-cursor{display:none;} .has-cursor{cursor:auto;} }
+
+/* Stack card images start clipped — JS reveals them as the card slides in */
+.stack-card img{ clip-path: inset(0 100% 0 0); }
+@media (prefers-reduced-motion: reduce){ .stack-card img{ clip-path: none; } }
+
 /* ---------- SCROLL PROGRESS BAR ---------- */
 .scroll-progress{
   position:fixed; top:0; left:0; height:3px; width:0%;

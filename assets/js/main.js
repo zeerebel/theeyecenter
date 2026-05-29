@@ -502,7 +502,7 @@
 
         var activeIdx = 0;
         cards.forEach(function (c, i) {
-          var y, opacity = 1;
+          var y, eased = 1;
           if (i === 0) {
             y = 0;
           } else {
@@ -510,14 +510,19 @@
             var t1 = i / (N - 1);
             var local = Math.max(0, Math.min(1, (p - t0) / (t1 - t0)));
             if (local > 0.5) activeIdx = i;
-            var eased = ease(local);
+            eased = ease(local);
             var yStart = winH * 1.1; // start ~110vh below center
             var yRest = i * offsetPerCard;
             y = (1 - eased) * yStart + eased * yRest;
           }
           c.style.transform = "translate(-50%, calc(-50% + " + y + "px))";
           c.style.zIndex = i + 1;
-          c.style.opacity = opacity;
+          // Image mask-reveal as the card slides in
+          var img = c.querySelector("img");
+          if (img) {
+            var pct = i === 0 ? 0 : (1 - eased) * 100;
+            img.style.clipPath = "inset(0 " + pct + "% 0 0)";
+          }
         });
 
         if (counter) counter.textContent =
@@ -610,6 +615,81 @@
     });
   }
 
+  /* ---------- WORD-BY-WORD HEADLINE REVEAL ---------- */
+  function splitWords(el) {
+    var words = [];
+    function walk(node) {
+      if (node.nodeType === 3) {
+        var parts = node.textContent.split(/(\s+)/);
+        var frag = document.createDocumentFragment();
+        parts.forEach(function (p) {
+          if (!p) return;
+          if (/^\s+$/.test(p)) {
+            frag.appendChild(document.createTextNode(p));
+          } else {
+            var s = document.createElement("span");
+            s.className = "w";
+            s.textContent = p;
+            frag.appendChild(s);
+            words.push(s);
+          }
+        });
+        node.parentNode.replaceChild(frag, node);
+      } else if (node.nodeType === 1) {
+        if (node.tagName === "BR") return;
+        Array.prototype.slice.call(node.childNodes).forEach(walk);
+      }
+    }
+    walk(el);
+    words.forEach(function (w, i) { w.style.setProperty("--i", i); });
+    return words;
+  }
+
+  function wireWordReveal() {
+    var targets = document.querySelectorAll(".section-head h2, .page-hero h1, .stack-head h2");
+    if (!targets.length) return;
+    targets.forEach(function (t) {
+      if (t.querySelector(".w")) return; // already split
+      splitWords(t);
+    });
+    if (!("IntersectionObserver" in window)) {
+      targets.forEach(function (t) { t.classList.add("in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.2 });
+    targets.forEach(function (t) { io.observe(t); });
+  }
+
+  /* ---------- CUSTOM CURSOR ---------- */
+  function wireCursor() {
+    if (!window.matchMedia) return;
+    if (window.matchMedia("(hover: none)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    var c = document.createElement("div");
+    c.className = "custom-cursor";
+    document.body.appendChild(c);
+    document.body.classList.add("has-cursor");
+
+    var x = -100, y = -100;
+    document.addEventListener("mousemove", function (e) {
+      x = e.clientX; y = e.clientY;
+      c.style.transform = "translate3d(" + x + "px," + y + "px,0) translate(-50%,-50%)";
+    });
+
+    var hoverSelector = "a, button, .pill, .gcard, .svc, .doc, .prod, .loc, .stack-card, .sw, .faq-q, .icon-btn, .arr-btn, .sb-loc, .prod-ar, .nav-burger, .ins, label";
+    document.addEventListener("mouseover", function (e) {
+      if (e.target.closest && e.target.closest(hoverSelector)) c.classList.add("grow");
+    }, true);
+    document.addEventListener("mouseout", function (e) {
+      if (e.target.closest && e.target.closest(hoverSelector)) c.classList.remove("grow");
+    }, true);
+  }
+
   /* ---------- BRANDED FAVICON ---------- */
   function injectFavicon() {
     if (document.querySelector('link[rel="icon"]')) return;
@@ -644,6 +724,8 @@
     wireCardStack();
     wireScrollProgress();
     wireMagnetic();
+    wireWordReveal();
+    wireCursor();
     injectFavicon();
   }
 
