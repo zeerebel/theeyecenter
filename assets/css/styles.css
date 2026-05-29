@@ -1018,6 +1018,18 @@ footer.foot{padding: 60px 28px 32px;}
   text-shadow:0 1px 4px rgba(0,0,0,.28);
 }
 
+/* ---------- SCROLL PROGRESS BAR ---------- */
+.scroll-progress{
+  position:fixed; top:0; left:0; height:3px; width:0%;
+  background:var(--lime); z-index:200; pointer-events:none;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--lime) 70%, transparent);
+  transition: background .35s ease, box-shadow .35s ease;
+}
+@media (prefers-reduced-motion: reduce){ .scroll-progress{transition:none;} }
+
+/* Allow magnetic-button JS to translate without breaking the hover lift */
+.pill.lime,.sb-book,.btn-submit{ transition: background .3s ease, border-color .3s ease, transform .3s ease, box-shadow .3s ease, translate .5s cubic-bezier(.22,.7,.2,1); }
+
 /* ---------- SCROLL-STACK SECTION (JS-driven) ---------- */
 .stack-section{position:relative;}
 .stack-pin{

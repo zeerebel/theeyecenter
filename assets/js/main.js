@@ -476,15 +476,15 @@
       if (reduced) { section.classList.add("static"); return; }
 
       var N = cards.length;
-      // Total scroll length: one viewport per card transition + a bit of breathing
-      section.style.height = (N * 95 + 40) + "vh";
+      // Tighter scroll length so the deck doesn't feel "stuck" after the
+      // last card lands — each card transition takes ~70vh of scroll.
+      section.style.height = (N * 70 + 30) + "vh";
 
       var counter = section.querySelector(".stack-counter");
-      // Reveal per card ~20% of card height — keeps the previous card's
-      // header (chip + title + subheading) visible while preserving an
-      // ~80% overlap once the stack is fully built.
+      // Reveal per card sized to fit the full title band on previous
+      // cards (chip + title + a line of subheading).
       var cardH = cards[0].offsetHeight || 600;
-      var offsetPerCard = Math.max(80, Math.min(150, Math.round(cardH * 0.2)));
+      var offsetPerCard = Math.max(130, Math.min(170, Math.round(cardH * 0.26)));
       var ease = function (t) { return 1 - Math.pow(1 - t, 3); };
       var ticking = false;
 
@@ -495,10 +495,10 @@
         var scrolled = Math.max(0, Math.min(total, -rect.top));
         var p = total > 0 ? scrolled / total : 0;
 
-        // Recompute the per-card offset live so the reveal stays ~20% of
-        // the card's actual height (it changes with viewport width).
+        // Recompute the per-card offset live so the reveal stays sized
+        // to the card's actual height (it changes with viewport width).
         var ch = cards[0].offsetHeight || cardH;
-        offsetPerCard = Math.max(80, Math.min(150, Math.round(ch * 0.2)));
+        offsetPerCard = Math.max(130, Math.min(170, Math.round(ch * 0.26)));
 
         var activeIdx = 0;
         cards.forEach(function (c, i) {
@@ -572,6 +572,44 @@
     sections.forEach(function (s) { io.observe(s); });
   }
 
+  /* ---------- SCROLL PROGRESS BAR ---------- */
+  function wireScrollProgress() {
+    var bar = document.createElement("div");
+    bar.className = "scroll-progress";
+    document.body.appendChild(bar);
+    var ticking = false;
+    function apply() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      bar.style.width = (p * 100) + "%";
+      ticking = false;
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) { requestAnimationFrame(apply); ticking = true; }
+    }, { passive: true });
+    window.addEventListener("resize", apply);
+    apply();
+  }
+
+  /* ---------- MAGNETIC PRIMARY BUTTONS ---------- */
+  function wireMagnetic() {
+    if (window.matchMedia) {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      if (window.matchMedia("(hover: none)").matches) return; // skip on touch
+    }
+    document.querySelectorAll(".pill.lime, .sb-book, .btn-submit").forEach(function (btn) {
+      btn.addEventListener("mousemove", function (e) {
+        var r = btn.getBoundingClientRect();
+        var mx = e.clientX - (r.left + r.width / 2);
+        var my = e.clientY - (r.top + r.height / 2);
+        btn.style.translate = (mx * 0.22) + "px " + (my * 0.28) + "px";
+      });
+      btn.addEventListener("mouseleave", function () {
+        btn.style.translate = "0 0";
+      });
+    });
+  }
+
   /* ---------- BRANDED FAVICON ---------- */
   function injectFavicon() {
     if (document.querySelector('link[rel="icon"]')) return;
@@ -604,6 +642,8 @@
     wireCountUp();
     wireSectionIndex();
     wireCardStack();
+    wireScrollProgress();
+    wireMagnetic();
     injectFavicon();
   }
 
