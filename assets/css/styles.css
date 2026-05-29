@@ -332,7 +332,6 @@ body[data-density="spacious"] section{padding-top:160px; padding-bottom:160px;}
   grid-template-columns: repeat(4, 1fr);
   gap:14px;
   opacity:0; animation: rise 1s .8s ease forwards;
-  will-change: transform;
 }
 .gcard{
   aspect-ratio: 4/5;
@@ -1012,30 +1011,9 @@ footer.foot{padding: 60px 28px 32px;}
   .mobile-menu nav a{font-size:28px;}
 }
 
-/* ---------- HERO CARD STACK (scroll-stacking on small screens) ---------- */
-.gcard .foot-txt{display:flex; flex-direction:column; gap:5px; max-width:18ch;}
+/* ---------- HERO CARD CAPTION ---------- */
+.gcard .foot-txt{display:flex; flex-direction:column; gap:4px; max-width:18ch;}
 .gcard .sub{
-  font-size:12.5px; line-height:1.3; color:rgba(255,255,255,.82);
+  font-size:12px; line-height:1.3; color:rgba(255,255,255,.8);
   text-shadow:0 1px 4px rgba(0,0,0,.28);
-}
-@media (max-width: 900px){
-  .card-rail{display:block; max-width:540px; margin-left:auto; margin-right:auto;}
-  .card-rail .gcard{
-    position:sticky;
-    width:100%; aspect-ratio:4/5;
-    margin:0 0 16vh;
-    box-shadow:
-      0 -8px 30px -18px rgba(25,29,26,.45),
-      0 22px 50px -26px rgba(25,29,26,.32),
-      inset 0 0 0 1px rgba(255,255,255,.35);
-  }
-  .card-rail .gcard:nth-child(1){top:84px;}
-  .card-rail .gcard:nth-child(2){top:98px;}
-  .card-rail .gcard:nth-child(3){top:112px;}
-  .card-rail .gcard:nth-child(4){top:126px;}
-  .card-rail .gcard:last-child{margin-bottom:24px;}
-  .gcard .name{font-size:30px;}
-}
-@media (prefers-reduced-motion: reduce){
-  .card-rail .gcard{position:static; margin-bottom:14px;}
 }
