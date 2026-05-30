@@ -508,10 +508,10 @@
       section.style.height = (N * 70 + 30) + "vh";
 
       var counter = section.querySelector(".stack-counter");
-      // Reveal per card sized to fit the full title band on previous
-      // cards (chip + title + a line of subheading).
-      var cardH = cards[0].offsetHeight || 600;
-      var offsetPerCard = Math.max(130, Math.min(170, Math.round(cardH * 0.26)));
+      // Card sizing is bounded by viewport (clamp height in CSS), so the
+      // whole deck always fits — the front card stays at viewport center
+      // and previous cards stack above it with a small "peek" of each.
+      var cardH = cards[0].offsetHeight || 460;
       var ease = function (t) { return 1 - Math.pow(1 - t, 3); };
       var ticking = false;
 
@@ -522,32 +522,35 @@
         var scrolled = Math.max(0, Math.min(total, -rect.top));
         var p = total > 0 ? scrolled / total : 0;
 
-        // Recompute the per-card offset live so the reveal stays sized
-        // to the card's actual height (it changes with viewport width).
+        // Fit the whole deck (front card + peeks) inside the viewport.
         var ch = cards[0].offsetHeight || cardH;
-        offsetPerCard = Math.max(130, Math.min(170, Math.round(ch * 0.26)));
+        var maxOffset = Math.floor(((winH * 0.85) - ch) / Math.max(1, N - 1));
+        var offset = Math.max(60, Math.min(130, maxOffset));
 
-        var activeIdx = 0;
+        // "Scroll index": which card is currently centered.
+        var P = p * (N - 1);
+        var activeIdx = Math.max(0, Math.min(N - 1, Math.round(P)));
+
         cards.forEach(function (c, i) {
-          var y, eased = 1;
-          if (i === 0) {
-            y = 0;
+          var y, revealLocal = 1;
+          if (P < i) {
+            // Card i has not yet entered — animate up from below center.
+            var t = Math.max(0, Math.min(1, P - (i - 1)));
+            revealLocal = t;
+            var eased = ease(t);
+            y = (1 - eased) * (winH * 1.1) + eased * 0;
           } else {
-            var t0 = (i - 1) / (N - 1);
-            var t1 = i / (N - 1);
-            var local = Math.max(0, Math.min(1, (p - t0) / (t1 - t0)));
-            if (local > 0.5) activeIdx = i;
-            eased = ease(local);
-            var yStart = winH * 1.1; // start ~110vh below center
-            var yRest = i * offsetPerCard;
-            y = (1 - eased) * yStart + eased * yRest;
+            // Card i has been pushed up into its stack slot above center.
+            var advance = Math.min(P - i, N - 1 - i);
+            y = -advance * offset;
           }
           c.style.transform = "translate(-50%, calc(-50% + " + y + "px))";
+          // Later cards (most recent to enter) sit on top of earlier ones.
           c.style.zIndex = i + 1;
-          // Image mask-reveal as the card slides in
+          // Image mask-reveal as the card slides into focus.
           var img = c.querySelector("img");
           if (img) {
-            var pct = i === 0 ? 0 : (1 - eased) * 100;
+            var pct = (1 - ease(revealLocal)) * 100;
             img.style.clipPath = "inset(0 " + pct + "% 0 0)";
           }
         });

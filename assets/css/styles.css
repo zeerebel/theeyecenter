@@ -505,7 +505,7 @@ section{padding: 110px 28px;}
   font-size:13px; color:var(--ink-soft);
   margin-bottom:24px;
 }
-.eyebrow .dot{width:5px; height:5px; border-radius:50%; background:var(--ink);}
+.eyebrow .dot{display:none;}     /* bullet removed per request */
 .section-head{
   display:grid; grid-template-columns: 1.4fr 1fr;
   gap:60px; align-items:end; margin-bottom:60px;
@@ -1141,8 +1141,8 @@ button:disabled, [aria-disabled="true"]{
 .stack-cards{position:relative;}
 .stack-card{
   position:absolute; left:50%; top:50%;
-  width:min(520px, 88vw);
-  aspect-ratio:4/5;
+  width:min(420px, 86vw);
+  height:clamp(380px, 58vh, 520px);
   border-radius:22px; overflow:hidden;
   background:#222;
   box-shadow:
