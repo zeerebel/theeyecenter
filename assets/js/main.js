@@ -737,12 +737,15 @@
   }
 
   /* ---------- INIT ---------- */
+  // Audit pass: cut the "feature soup". Custom cursor and accent switcher
+  // are intentionally NOT initialised in production — they were preview /
+  // designer tools that made the site read as AI-template. The other
+  // micro-animations stay because each one carries meaning on its own.
   function init() {
     applyStoredAccent();
     renderHeader();
     renderFooter();
     renderStickyBar();
-    renderAccentSwitcher();
     wireParallax();
     wireReveal();
     wireFaq();
@@ -755,7 +758,6 @@
     wireScrollProgress();
     wireMagnetic();
     wireWordReveal();
-    wireCursor();
     injectSkipLink();
     injectFavicon();
   }
