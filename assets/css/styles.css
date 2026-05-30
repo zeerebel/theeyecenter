@@ -12,7 +12,7 @@
   --card-2:#ECEAE2;
   --ink:#191D1A;
   --ink-soft:#3A413C;
-  --ink-mute:#7A8079;
+  --ink-mute:#6A6F69;          /* darkened to meet WCAG AA on cream (was #7A8079) */
   --rule:rgba(25,29,26,.10);
   --rule-2:rgba(25,29,26,.18);
   --lime:#D6F25E;
@@ -23,6 +23,15 @@
   --peach:#E8C9B0;
   --radius-card: 18px;
   --radius-pill: 999px;
+  /* Motion tokens — one rhythm across the UI */
+  --ease-out: cubic-bezier(.2,.7,.2,1);
+  --dur-fast: .18s;
+  --dur-base: .3s;
+  --dur-slow: .6s;
+  /* Elevation scale — consistent layering */
+  --shadow-1: 0 6px 18px -10px rgba(25,29,26,.18);
+  --shadow-2: 0 14px 40px -22px rgba(25,29,26,.22);
+  --shadow-3: 0 24px 60px -28px rgba(25,29,26,.30);
 }
 
 /* The theme v4 actually rendered with (coral accent, soft corners,
@@ -1016,6 +1025,45 @@ footer.foot{padding: 60px 28px 32px;}
 .gcard .sub{
   font-size:12px; line-height:1.3; color:rgba(255,255,255,.8);
   text-shadow:0 1px 4px rgba(0,0,0,.28);
+}
+
+/* ---------- A11Y & INTERACTION POLISH (UI/UX Pro Max audit) ---------- */
+/* Skip-to-main link — only visible when focused */
+.skip-link{
+  position:fixed; top:8px; left:8px; z-index:300;
+  padding:10px 16px; border-radius:10px;
+  background:var(--lime); color:var(--ink);
+  font-weight:600; font-size:14px; letter-spacing:-0.005em;
+  transform:translateY(-160%);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.skip-link:focus{ transform:none; outline:2px solid var(--ink); outline-offset:2px; }
+
+/* Eliminate 300ms tap delay on all interactive elements */
+a, button, summary, label, input, select, textarea,
+.pill, .icon-btn, .arr-btn, .gcard, .svc, .doc, .prod, .loc,
+.stack-card, .sw, .faq-q, .nav-burger, .sb-loc, .sb-book{
+  touch-action: manipulation;
+}
+
+/* Meet 44×44 minimum touch targets across primary controls */
+.pill{ min-height:44px; }
+.icon-btn,.nav-burger{ width:44px; height:44px; }
+.hero-actions .arr-btn{ width:46px; height:46px; }
+.faq-q{ min-height:52px; }
+
+/* Tabular figures so animated/aligned numbers don't jitter */
+.stats-inner .stat .v,
+.trust .num .v,
+.pc-rows .v,
+.ticker .t-item b,
+.stack-counter{
+  font-variant-numeric: tabular-nums;
+}
+
+/* Disabled state clarity (any disabled element) */
+button:disabled, [aria-disabled="true"]{
+  opacity:.55; cursor:not-allowed;
 }
 
 /* ---------- WORD-BY-WORD HEADLINE REVEAL ---------- */

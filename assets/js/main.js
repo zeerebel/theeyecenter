@@ -19,8 +19,10 @@
 
   function navLinksHTML(activeClass) {
     return NAV.map(function (item) {
-      var active = item.key === current ? " " + activeClass : "";
-      return '<a href="' + item.href + '" class="' + active.trim() + '">' + item.label + "</a>";
+      var active = item.key === current;
+      return '<a href="' + item.href + '"' +
+        (active ? ' class="' + activeClass + '" aria-current="page"' : "") +
+        ">" + item.label + "</a>";
     }).join("");
   }
 
@@ -268,14 +270,39 @@
 
   /* ---------- FAQ ACCORDION ---------- */
   function wireFaq() {
-    document.querySelectorAll(".faq-item .faq-q").forEach(function (btn) {
+    document.querySelectorAll(".faq-item").forEach(function (item, idx) {
+      var btn = item.querySelector(".faq-q");
+      var ans = item.querySelector(".faq-a");
+      if (!btn || !ans) return;
+      // Wire ARIA so screen readers announce expanded/collapsed state.
+      var ansId = ans.id || ("faq-a-" + idx);
+      ans.id = ansId;
+      ans.setAttribute("role", "region");
+      btn.setAttribute("aria-expanded", "false");
+      btn.setAttribute("aria-controls", ansId);
       btn.addEventListener("click", function () {
-        var item = btn.closest(".faq-item");
-        var ans = item.querySelector(".faq-a");
         var isOpen = item.classList.toggle("open");
+        btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
         ans.style.maxHeight = isOpen ? ans.scrollHeight + "px" : "0px";
       });
     });
+  }
+
+  /* ---------- SKIP-TO-CONTENT LINK ---------- */
+  function injectSkipLink() {
+    if (document.querySelector(".skip-link")) return;
+    var sk = document.createElement("a");
+    sk.className = "skip-link";
+    sk.href = "#main";
+    sk.textContent = "Skip to main content";
+    document.body.prepend(sk);
+    // Assign id="main" to the first content region after the header mount.
+    var mount = document.getElementById("site-header");
+    var target = mount && mount.nextElementSibling;
+    while (target && !/^(HEADER|SECTION|MAIN|ARTICLE)$/.test(target.tagName)) {
+      target = target.nextElementSibling;
+    }
+    if (target && !target.id) target.id = "main";
   }
 
   /* ---------- CONTACT FORM ---------- */
@@ -726,6 +753,7 @@
     wireMagnetic();
     wireWordReveal();
     wireCursor();
+    injectSkipLink();
     injectFavicon();
   }
 
