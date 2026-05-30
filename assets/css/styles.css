@@ -202,8 +202,9 @@ body[data-density="spacious"] section{padding-top:160px; padding-bottom:160px;}
 .icon-btn:hover{background:rgba(25,29,26,.06);}
 .icon-btn svg{width:14px; height:14px;}
 
-/* Hamburger — hidden on desktop, shown on mobile */
-.nav-burger{ display:none; }
+/* Hamburger — always visible (matches the reference pattern: alongside
+   the desktop nav links, becomes the primary control on mobile). */
+.nav-burger{ display:grid; }
 
 /* ---------- MOBILE MENU ---------- */
 .mobile-menu{
