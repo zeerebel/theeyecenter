@@ -105,6 +105,19 @@
     if (!mount) return;
     mount.innerHTML =
       '<footer class="foot">' +
+        '<div class="tech-strip" aria-hidden="true">' +
+          '<span class="t-item">Est. 1973</span>' +
+          '<span class="t-sep">·</span>' +
+          '<span class="t-item">Independent practice</span>' +
+          '<span class="t-sep">·</span>' +
+          '<span class="t-item">Board-certified</span>' +
+          '<span class="t-sep">·</span>' +
+          '<span class="t-item">Most insurance accepted</span>' +
+          '<span class="t-sep">·</span>' +
+          '<span class="t-item">24/7 on-call</span>' +
+          '<span class="t-sep">·</span>' +
+          '<span class="t-item">Canandaigua · Geneva · Macedon</span>' +
+        '</div>' +
         '<div class="foot-card">' +
           '<div class="foot-locs">' +
             footLoc("01 &mdash; Flagship", "Canandaigua", "Canandaigua", "325 West Street", "Canandaigua, NY 14424", "585 &middot; 394 &middot; 2020") +
