@@ -1157,7 +1157,15 @@ footer.foot{padding: 60px 28px 32px;}
   .section-head{grid-template-columns: 1fr; gap:24px;}
 }
 @media (max-width: 680px){
-  .nav{padding:14px 16px;}
+  .nav{padding:12px 14px;}
+  .nav-inner{gap:10px;}
+  .brand-name{font-size:20px;}
+  .brand-glyph{width:26px; height:26px;}
+  .nav-right{gap:6px;}
+  .nav-right .pill{padding:9px 14px; min-height:40px; font-size:12.5px;}
+  .icon-btn,.nav-burger{width:40px; height:40px;}
+  /* Burger must never get pushed off-screen */
+  .nav-burger{flex-shrink:0;}
   section{padding: 80px 16px;}
   body[data-density="spacious"] section{padding-top:90px; padding-bottom:90px;}
   .hero{padding: 100px 16px 30px;}
@@ -1188,6 +1196,12 @@ footer.foot{padding: 60px 28px 32px;}
   .sticky-book{right:12px; bottom:12px;}
   .sb-loc{min-width:118px;}
   .nav-right .pill:not(.lime){display:none;}
+}
+@media (max-width: 380px){
+  /* Very narrow phones — hide the Book pill text, keep the burger as the
+     primary control. The mobile menu still has Book inside. */
+  .nav-right .pill.lime{padding:8px 12px; font-size:12px;}
+  .brand-name{font-size:18px;}
 }
 @media (max-width: 420px){
   .card-rail{grid-template-columns: 1fr;}
