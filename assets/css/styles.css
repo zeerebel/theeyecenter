@@ -1,27 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap');
 /* ============================================================
    The Eye Care Center — shared design system
-   Ported from the v4 design, with multi-page additions:
-   mobile menu, inner-page hero, contact form, breadcrumbs.
+   Editorial / brutalist art direction: white background,
+   heavy uppercase Archivo display type, sharp corners,
+   full-bleed photography, mono micro-labels, lime accent.
    ============================================================ */
 
 :root{
-  --bg:#E6ECE6;
-  --bg-2:#D6E2DC;
-  --bg-3:#EFF1E8;
-  --card:#F4F2EC;
-  --card-2:#ECEAE2;
-  --ink:#191D1A;
-  --ink-soft:#3A413C;
-  --ink-mute:#6A6F69;          /* darkened to meet WCAG AA on cream (was #7A8079) */
-  --rule:rgba(25,29,26,.10);
-  --rule-2:rgba(25,29,26,.18);
+  --bg:#FFFFFF;
+  --bg-2:#F2F2EF;
+  --bg-3:#FFFFFF;
+  --card:#EEEEEA;
+  --card-2:#E4E4DE;
+  --ink:#0E100E;
+  --ink-soft:#34352F;
+  --ink-mute:#6A6B64;          /* WCAG-AA mute on white */
+  --rule:rgba(14,16,14,.12);
+  --rule-2:rgba(14,16,14,.22);
   --lime:#D6F25E;
   --lime-2:#C8E854;
   --sage:#A8BCAE;
   --mint:#B9D4C6;
   --plum:#C9B9D6;
   --peach:#E8C9B0;
-  --radius-card: 18px;
+  --radius-card: 2px;
   --radius-pill: 999px;
   /* Motion tokens — one rhythm across the UI */
   --ease-out: cubic-bezier(.2,.7,.2,1);
@@ -82,11 +84,7 @@ body{
 /* Atmospheric gradient overlay */
 body::before{
   content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
-  background:
-    radial-gradient(60% 50% at 80% 0%, rgba(185, 212, 198, .55), transparent 60%),
-    radial-gradient(50% 40% at 0% 30%, rgba(201, 185, 214, .25), transparent 60%),
-    radial-gradient(70% 60% at 100% 90%, rgba(232, 201, 176, .22), transparent 60%),
-    linear-gradient(180deg, #EBF0EA 0%, #E0E8E1 50%, #D9E3DC 100%);
+  background:#FFFFFF;
 }
 /* Subtle film grain for depth — sits on the background layer, never over text */
 body::after{
@@ -266,19 +264,23 @@ body[data-density="spacious"] section{padding-top:160px; padding-bottom:160px;}
   padding: 30px 0 50px;
 }
 .hero h1{
-  font-family:"Instrument Sans", sans-serif;
-  font-weight:500;
-  font-size: clamp(48px, 7.2vw, 116px);
-  line-height: .96;
-  letter-spacing:-0.035em;
+  font-family:"Archivo", sans-serif;
+  font-weight:800;
+  text-transform:uppercase;
+  font-size: clamp(48px, 7.6vw, 124px);
+  line-height: .9;
+  letter-spacing:-0.03em;
   margin:0;
-  max-width:14ch;
+  max-width:16ch;
 }
 .hero h1 .em{
-  font-family:"Instrument Serif", serif;
-  font-style:italic;
-  font-weight:400;
-  letter-spacing:-0.02em;
+  font-family:"Archivo", sans-serif;
+  font-style:normal;
+  font-weight:800;
+  letter-spacing:-0.03em;
+  color:transparent;
+  -webkit-text-stroke:1.4px var(--ink);
+  text-stroke:1.4px var(--ink);
 }
 .hero h1 .line{display:block; overflow:hidden;}
 .hero h1 .line > span{display:inline-block; transform:translateY(105%); animation: lineUp 1.05s cubic-bezier(.2,.7,.2,1) forwards;}
@@ -519,14 +521,18 @@ section{padding: 110px 28px;}
   gap:60px; align-items:end; margin-bottom:60px;
 }
 .section-head h2{
-  font-family:"Instrument Sans", sans-serif;
-  font-weight:500;
-  /* Editorial scale — much bigger and more confident, matching reference work */
-  font-size: clamp(46px, 7.4vw, 124px);
-  line-height: .94; letter-spacing:-0.045em;
-  margin:0; max-width:16ch;
+  font-family:"Archivo", sans-serif;
+  font-weight:800;
+  text-transform:uppercase;
+  /* Editorial scale — heavy grotesque, brutalist confidence */
+  font-size: clamp(40px, 7vw, 118px);
+  line-height: .9; letter-spacing:-0.035em;
+  margin:0; max-width:18ch;
 }
-.section-head h2 .em{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400;}
+.section-head h2 .em{
+  font-family:"Archivo", sans-serif; font-style:normal; font-weight:800;
+  color:transparent; -webkit-text-stroke:1.4px var(--ink); text-stroke:1.4px var(--ink);
+}
 .section-head .right{display:flex; flex-direction:column; gap:22px; align-items:flex-start;}
 .section-head .right p{font-size:15.5px; line-height:1.6; color:var(--ink-soft); margin:0; max-width:42ch;}
 
@@ -1393,3 +1399,45 @@ button:disabled, [aria-disabled="true"]{
 .stack-section.static .stack-pin{position:static; height:auto;}
 .stack-section.static .stack-cards{display:flex; flex-direction:column; gap:14px; align-items:center;}
 .stack-section.static .stack-card{position:relative; left:auto; top:auto; transform:none; margin:0;}
+
+/* ============================================================
+   ART DIRECTION — editorial / brutalist (white bg, heavy caps)
+   Converts every remaining display heading from Instrument
+   Serif italic to heavy uppercase Archivo for a cohesive look.
+   ============================================================ */
+.page-hero h1,
+.eyewear-head h2,
+.portal-left h2,
+.contact-info h2,
+.svc h3,
+.ins h3,
+.manifesto-q,
+.full-photo-line,
+.pc-display{
+  font-family:"Archivo", sans-serif;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:-0.03em;
+  font-style:normal;
+  line-height:.92;
+}
+/* Emphasis words become solid, same-weight blocks (monolithic) */
+.page-hero h1 .em,
+.eyewear-head h2 .em,
+.portal-left h2 .em,
+.svc h3 .em,
+.ins h3 .em,
+.pc-display .em,
+.manifesto-q .em,
+.full-photo-line .em,
+.mobile-menu nav a .em{
+  font-family:"Archivo", sans-serif;
+  font-style:normal;
+  font-weight:800;
+  color:inherit;
+  -webkit-text-stroke:0;
+}
+/* Contact heading keeps a lime accent word */
+.contact-info h2 .em{ color:var(--ink); }
+/* Nav + mobile menu links read as editorial micro-caps */
+.nav-links a{ text-transform:uppercase; letter-spacing:.04em; font-size:12.5px; }
