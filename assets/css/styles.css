@@ -52,13 +52,16 @@ body[data-accent="amber"] .pill.lime{ color:var(--ink); }
 
 *{box-sizing:border-box;}
 html,body{margin:0; padding:0;}
-html{scroll-behavior:smooth; scroll-padding-top:104px;}
+html{scroll-behavior:smooth; scroll-padding-top:104px; overflow-x:hidden;}
 
 /* Branded text selection */
 ::selection{background:var(--lime); color:var(--ink);}
 
 /* Balanced, premium headline wrapping */
 h1,h2,h3,.hero h1,.section-head h2{text-wrap:balance;}
+/* Safety net: never let a single long word (e.g. "Ophthalmologists,")
+   overflow the viewport and force horizontal scroll on small screens. */
+h1,h2,h3,.hero h1,.section-head h2{overflow-wrap:break-word;}
 
 /* Visible focus rings for keyboard users */
 a:focus-visible,button:focus-visible,input:focus-visible,
@@ -1196,6 +1199,14 @@ footer.foot{padding: 60px 28px 32px;}
   .sticky-book{right:12px; bottom:12px;}
   .sb-loc{min-width:118px;}
   .nav-right .pill:not(.lime){display:none;}
+  /* Editorial display type must fit the phone: the longest single words
+     ("Ophthalmologists,") were overflowing the viewport and clipping. */
+  .section-head h2{font-size:clamp(30px, 8.4vw, 46px); letter-spacing:-0.03em;}
+  /* The asymmetric Doctors / Insights heads use a larger override (min 56px)
+     that must also shrink on phones, or "Ophthalmologists," overflows. */
+  .doctors > .container > .section-head h2,
+  .insights > .container > .section-head h2{font-size:clamp(32px, 9vw, 54px); letter-spacing:-0.035em;}
+  .hero h1{font-size:clamp(38px, 11vw, 64px);}
 }
 @media (max-width: 380px){
   /* Very narrow phones — hide the Book pill text, keep the burger as the
