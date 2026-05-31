@@ -523,6 +523,10 @@ section{padding: 110px 28px;}
   display:grid; grid-template-columns: 1.4fr 1fr;
   gap:60px; align-items:end; margin-bottom:60px;
 }
+/* Grid tracks default to min-width:auto, which lets a long unbreakable word
+   grow a column past the container and clip/scroll. min-width:0 keeps every
+   section heading inside its column site-wide. */
+.section-head > *{ min-width: 0; }
 .section-head h2{
   font-family:"Archivo", sans-serif;
   font-weight:800;
@@ -850,13 +854,21 @@ body[data-accent="coral"] .field label .req{color:#F26A48;}
   gap: 28px;
   align-items: start;
 }
+/* Sized so the longest unbreakable word ("Ophthalmologists,", 17 chars)
+   fits the 1480px content column on one line. The previous 9.5vw / 168px
+   made that word wider than the viewport at every desktop width, so it
+   clipped on the right and forced a horizontal scrollbar. */
 .doctors > .container > .section-head h2,
 .insights > .container > .section-head h2{
   max-width: 100%;
-  font-size: clamp(56px, 9.5vw, 168px);
+  font-size: clamp(48px, 7.6vw, 124px);
   line-height: .92;
   letter-spacing: -0.05em;
 }
+/* min-width:0 lets the grid track shrink to the column instead of growing
+   to the heading's intrinsic width — a hard guard against horizontal overflow. */
+.doctors > .container > .section-head > div,
+.insights > .container > .section-head > div{ min-width: 0; }
 .doctors > .container > .section-head .right,
 .insights > .container > .section-head .right{
   flex-direction: row;
