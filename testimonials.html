@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Testimonials — The Eye Care Center</title>
+<meta name="description" content="What our patients say about their care at The Eye Care Center." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<style>
+  .quote-grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px;}
+  .quote-card{
+    background:var(--card); border-radius:var(--radius-card, 18px); padding:28px;
+    display:flex; flex-direction:column; gap:18px;
+    box-shadow: 0 14px 40px -25px rgba(25,29,26,.18), inset 0 0 0 1px rgba(255,255,255,.4);
+    transition: transform .5s ease;
+  }
+  .quote-card:hover{transform: translateY(-5px);}
+  .quote-card .stars-row{display:flex; gap:3px;}
+  .quote-card .stars-row span{width:14px; height:14px; background:#00B67A; display:inline-grid; place-items:center; border-radius:2px;}
+  .quote-card .stars-row svg{width:9px; height:9px; fill:#fff;}
+  .quote-card blockquote{margin:0; font-family:"Instrument Serif", serif; font-size:22px; line-height:1.35; letter-spacing:-0.01em; color:var(--ink);}
+  .quote-card .who{margin-top:auto; padding-top:16px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; align-items:center;}
+  .quote-card .who .name{font-weight:500; font-size:14px;}
+  .quote-card .who .loc{font-family:"JetBrains Mono", monospace; font-size:10.5px; color:var(--ink-mute);}
+  @media (max-width:1180px){.quote-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:680px){.quote-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body data-page="testimonials" data-accent="lime" data-radius="soft" data-density="spacious">
+
+<div id="site-header"></div>
+
+<header class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb"><a href="index.html">Home</a><span class="sep">/</span><span class="here">Testimonials</span></nav>
+    <h1>In our patients' <span class="em">own words</span>.</h1>
+    <p class="lede">A rating built over decades, not campaigns. <em>[Placeholder quotes — replace with the practice's real testimonials.]</em></p>
+  </div>
+</header>
+
+<section class="stats" style="padding-top:0;">
+  <div class="stats-inner">
+    <div class="lead">"The same trusted care, year after year."</div>
+    <div class="stat"><span class="v">4.9</span><span class="k">Average rating</span></div>
+    <div class="stat"><span class="v">1,247</span><span class="k">Reviews</span></div>
+    <div class="stat"><span class="v">98%</span><span class="k">Would recommend</span></div>
+    <div class="stat"><span class="v">200k+</span><span class="k">Patients served</span></div>
+  </div>
+</section>
+
+<section style="padding-top:40px;">
+  <div class="container">
+    <div class="quote-grid">
+      <article class="quote-card reveal">
+        <div class="stars-row"><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span></div>
+        <blockquote>"From the first call to my follow-up, every person treated me like the only patient they had that day."</blockquote>
+        <div class="who"><span class="name">Placeholder Patient</span><span class="loc">Canandaigua</span></div>
+      </article>
+      <article class="quote-card reveal d1">
+        <div class="stars-row"><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span></div>
+        <blockquote>"My cataract surgery was quick and painless, and I could see clearly the very next morning. Life-changing."</blockquote>
+        <div class="who"><span class="name">Placeholder Patient</span><span class="loc">Geneva</span></div>
+      </article>
+      <article class="quote-card reveal d2">
+        <div class="stars-row"><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span></div>
+        <blockquote>"They fit my whole family — kids included — and never once made us feel rushed. We won't go anywhere else."</blockquote>
+        <div class="who"><span class="name">Placeholder Patient</span><span class="loc">Macedon</span></div>
+      </article>
+      <article class="quote-card reveal">
+        <div class="stars-row"><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span></div>
+        <blockquote>"Booking online was effortless and I was seen on time. The new glasses are perfect."</blockquote>
+        <div class="who"><span class="name">Placeholder Patient</span><span class="loc">Canandaigua</span></div>
+      </article>
+      <article class="quote-card reveal d1">
+        <div class="stars-row"><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span></div>
+        <blockquote>"Dr. and staff explained every step of my procedure. I never felt like a number."</blockquote>
+        <div class="who"><span class="name">Placeholder Patient</span><span class="loc">Geneva</span></div>
+      </article>
+      <article class="quote-card reveal d2">
+        <div class="stars-row"><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></span></div>
+        <blockquote>"Three generations of my family have trusted them. That says everything."</blockquote>
+        <div class="who"><span class="name">Placeholder Patient</span><span class="loc">Macedon</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cta-band">
+    <div class="ct">
+      <h2>Become a <span class="em">patient</span>.</h2>
+      <p>Join the families who've trusted us with their vision for decades. New patients welcome at all three locations.</p>
+    </div>
+    <div class="acts">
+      <a class="pill lime" href="contact.html"><span>Book a visit</span><span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+<div id="site-sticky"></div>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
