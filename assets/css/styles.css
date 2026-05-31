@@ -54,7 +54,10 @@ body[data-accent="amber"] .pill.lime{ color:var(--ink); }
 
 *{box-sizing:border-box;}
 html,body{margin:0; padding:0;}
-html{scroll-behavior:smooth; scroll-padding-top:104px; overflow-x:hidden;}
+/* NB: do NOT add overflow-x:hidden here — an overflow value on <html>
+   breaks position:sticky for the scroll-stack pin. Horizontal overflow
+   is contained by body{overflow-x:hidden} + per-element fixes instead. */
+html{scroll-behavior:smooth; scroll-padding-top:104px;}
 
 /* Branded text selection */
 ::selection{background:var(--lime); color:var(--ink);}
