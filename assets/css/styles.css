@@ -1338,18 +1338,19 @@ button:disabled, [aria-disabled="true"]{
   padding:96px 28px 32px;
   display:grid; grid-template-rows:auto 1fr; gap:20px;
 }
+.stack-head{position:relative; z-index:5; background:var(--bg); padding-bottom:18px;}
 .stack-head h2{
-  font-family:"Instrument Sans", sans-serif; font-weight:500;
-  font-size:clamp(34px, 4.6vw, 68px); line-height:1.02;
-  letter-spacing:-0.03em; margin:0 0 8px; max-width:18ch;
+  font-family:"Archivo", sans-serif; font-weight:800; text-transform:uppercase;
+  font-size:clamp(28px, 3.6vw, 52px); line-height:.96;
+  letter-spacing:-0.03em; margin:0 0 8px; max-width:20ch;
 }
-.stack-head h2 .em{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400;}
+.stack-head h2 .em{font-family:"Archivo", sans-serif; font-style:normal; font-weight:800; color:inherit;}
 .stack-head .lede{font-size:15px; line-height:1.55; color:var(--ink-soft); margin:0; max-width:48ch;}
 .stack-cards{position:relative;}
 .stack-card{
   position:absolute; left:50%; top:50%;
   width:min(420px, 86vw);
-  height:clamp(380px, 58vh, 520px);
+  height:clamp(340px, 50vh, 470px);
   border-radius:22px; overflow:hidden;
   background:#222;
   box-shadow:
