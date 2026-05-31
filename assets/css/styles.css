@@ -1410,11 +1410,16 @@ button:disabled, [aria-disabled="true"]{
 @media (max-width: 680px){
   .stack-inner{padding:80px 16px 24px;}
 }
-/* Reduced-motion: cards become a normal column, the section unpins */
+/* Static fallback (phones + reduced-motion): cards become a normal vertical
+   column and the section unpins, avoiding the fragile sticky/100vh stack. */
 .stack-section.static{height:auto !important;}
-.stack-section.static .stack-pin{position:static; height:auto;}
-.stack-section.static .stack-cards{display:flex; flex-direction:column; gap:14px; align-items:center;}
+.stack-section.static .stack-pin{position:static; height:auto; overflow:visible;}
+.stack-section.static .stack-cards{display:flex; flex-direction:column; gap:16px; align-items:center;}
 .stack-section.static .stack-card{position:relative; left:auto; top:auto; transform:none; margin:0;}
+/* The deck-stack hides each image until JS reveals it; in the static column
+   there's no reveal, so show them, and drop the now-meaningless counter. */
+.stack-section.static .stack-card img{clip-path:none;}
+.stack-section.static .stack-counter{display:none;}
 
 /* ============================================================
    ART DIRECTION — editorial / brutalist (white bg, heavy caps)

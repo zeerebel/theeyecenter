@@ -513,22 +513,14 @@
       if (cards.length < 2) return;
 
       var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduced) { section.classList.add("static"); return; }
-
       var N = cards.length;
-      // Tighter scroll length so the deck doesn't feel "stuck" after the
-      // last card lands — each card transition takes ~70vh of scroll.
-      section.style.height = (N * 70 + 30) + "vh";
-
       var counter = section.querySelector(".stack-counter");
-      // Card sizing is bounded by viewport (clamp height in CSS), so the
-      // whole deck always fits — the front card stays at viewport center
-      // and previous cards stack above it with a small "peek" of each.
-      var cardH = cards[0].offsetHeight || 460;
       var ease = function (t) { return 1 - Math.pow(1 - t, 3); };
       var ticking = false;
+      var live = false; // is the scroll-driven deck-stack currently active?
 
       function update() {
+        if (!live) { ticking = false; return; }
         var rect = section.getBoundingClientRect();
         var winH = window.innerHeight;
         var total = section.offsetHeight - winH;
@@ -536,7 +528,7 @@
         var p = total > 0 ? scrolled / total : 0;
 
         // Fit the whole deck (front card + peeks) inside the viewport.
-        var ch = cards[0].offsetHeight || cardH;
+        var ch = cards[0].offsetHeight || 460;
         var maxOffset = Math.floor(((winH * 0.85) - ch) / Math.max(1, N - 1));
         var offset = Math.max(60, Math.min(130, maxOffset));
 
@@ -574,11 +566,50 @@
         ticking = false;
       }
       function onScroll() {
-        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+        if (live && !ticking) { requestAnimationFrame(update); ticking = true; }
       }
+
+      // Fall back to a plain vertical column: unpin, clear the section height,
+      // and strip any inline styles the deck-stack left on the cards so the
+      // CSS column layout (and un-clipped images) takes over cleanly.
+      function goStatic() {
+        live = false;
+        section.classList.add("static");
+        section.style.height = "";
+        cards.forEach(function (c) {
+          c.style.transform = "";
+          c.style.zIndex = "";
+          var img = c.querySelector("img");
+          if (img) img.style.clipPath = "";
+        });
+      }
+      function goStack() {
+        section.classList.remove("static");
+        // Tighter scroll length so the deck doesn't feel "stuck" after the
+        // last card lands — each card transition takes ~70vh of scroll.
+        section.style.height = (N * 70 + 30) + "vh";
+        live = true;
+        update();
+      }
+
+      // The sticky/100vh deck-stack is fragile on phones: the address bar
+      // showing/hiding changes the viewport height mid-scroll, so cards drift
+      // and earlier cards leave stray "peek" slivers under the heading. Below
+      // 821px (and for reduced-motion) we use the clean column; the deck-stack
+      // stays on larger screens where the viewport height is stable.
+      function evaluate() {
+        var stackable = !reduced && window.matchMedia &&
+          window.matchMedia("(min-width: 821px)").matches;
+        if (stackable) {
+          if (!live) goStack();
+        } else if (live || !section.classList.contains("static")) {
+          goStatic();
+        }
+      }
+
       window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll);
-      update();
+      window.addEventListener("resize", function () { evaluate(); onScroll(); });
+      evaluate();
     });
   }
 
